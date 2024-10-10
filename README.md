@@ -6,6 +6,7 @@ Asignatura: Desarrollo Web en Entorno Servidor
 
 Proyecto de un Videoclub programado con PHP (basado en la propuesta que hace el tutorial de desarrolloweb.com), el cual vamos a realizar mediante un desarrollo incremental y siguiendo la práctica de programación en parejas (pair programming).
 
+<<<<<<< HEAD
 Responsabilidades:
 - Anthony:
     + Cliente
@@ -16,3 +17,6 @@ Responsabilidades:
     + Dvd
     + Juego
     + VideoClub(2,4,6,8)
+=======
+
+>>>>>>> RamaSoporte
