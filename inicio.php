@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
 </head>
+
 <body>
     <h1>Inicio PHP</h1>
-<?php
-//Código de prueba para Clase Soporte
-include_once "Clases/Soporte.php";
+    <?php
+    //Código de prueba para Clase Soporte
+    include_once "Clases/Soporte.php";
 
-$soporte1 = new Soporte("Tenet", 22, 3); 
-echo "<strong>" . $soporte1->titulo . "</strong>"; 
-echo "<br>Precio: " . $soporte1->getPrecio() . " euros"; 
-echo "<br>Precio IVA incluido: " . $soporte1->getPrecioConIVA() . " euros";
-$soporte1->muestraResumen();
-?>  
+    $soporte1 = new Soporte("Tenet", 22, 3);
+    echo "<strong>" . $soporte1->titulo . "</strong>";
+    echo "<br>Precio: " . $soporte1->getPrecio() . " euros";
+    echo "<br>Precio IVA incluido: " . $soporte1->getPrecioConIVA() . " euros";
+    $soporte1->muestraResumen();
+    ?>
+    <br>
+    <?php
+    //Código de prueba para Clase Dvd
+    include "Clases/Dvd.php";
+
+    $miDvd = new Dvd("Origen", 24, 15, "es,en,fr", "16:9");
+    echo "<strong>" . $miDvd->titulo . "</strong>";
+    echo "<br>Precio: " . $miDvd->getPrecio() . " euros";
+    echo "<br>Precio IVA incluido: " . $miDvd->getPrecioConIva() . " euros";
+    $miDvd->muestraResumen();
+    ?>
 </body>
+
 </html>
