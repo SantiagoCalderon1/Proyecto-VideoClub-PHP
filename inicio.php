@@ -41,6 +41,8 @@
     echo "<br>Precio IVA incluido: " . $miCinta->getPrecioConIva() . " euros";
     $miCinta->muestraResumen();
     ?>
+
+    
 </body>
 
 </html>
