@@ -14,5 +14,4 @@ class CintaVideo extends Soporte{
         echo "<br>".$this->duracion;
     }
 }
-
 ?>
