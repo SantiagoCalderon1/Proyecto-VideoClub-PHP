@@ -11,7 +11,7 @@
     <h1>Inicio PHP</h1>
     <?php
     //Código de prueba para Clase Soporte
-    include_once "Clases/Soporte.php";
+    include "Clases/Soporte.php";
 
     $soporte1 = new Soporte("Tenet", 22, 3);
     echo "<strong>" . $soporte1->titulo . "</strong>";
