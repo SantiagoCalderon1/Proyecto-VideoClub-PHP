@@ -25,7 +25,7 @@ class Soporte
 
     public function getPrecioConIva()
     {
-        return  $this->precio * self::$IVA;
+        return  $this->precio + ($this->precio * self::$IVA);
     }
 
     public function getNumero()

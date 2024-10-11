@@ -1,7 +1,8 @@
-<?php 
+<?php
 include_once "Soporte.php";
 
-class Dvd extends Soporte{
+class Dvd extends Soporte
+{
 
     public $idiomas = "";
     public $formatPantalla = "";
@@ -15,7 +16,7 @@ class Dvd extends Soporte{
 
     public function muestraResumen()
     {
-        parent::muestraResumen()."<br> Idiomas:".$this->idiomas."Formato pantalla:".$this->formatPantalla;
+        parent::muestraResumen();
+        echo "<br> Idiomas:" . $this->idiomas . "<br>Formato Pantalla:" . $this->formatPantalla;
     }
 }
-?>
