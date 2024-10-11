@@ -5,9 +5,9 @@ class Soporte
      * denominada IVA con un valor del 21%
      **/
     private static $IVA =  0.21;
-    public $titulo = "";
-    protected $numero = "";
-    private $precio = "";
+    public $titulo;
+    protected $numero;
+    private $precio;
 
     public function __construct($titulo,  $numero, $precio)
     {
