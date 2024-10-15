@@ -35,6 +35,8 @@
     $cliente1->alquilar($soporte1);
     //el cliente tiene 3 soportes en alquiler como máximo
     //este soporte no lo va a poder alquilar
+    echo "</br> a </br>";
+    echo$cliente1->getNumSoportesAlquilados();
     $cliente1->alquilar($soporte4);
     //este soporte no lo tiene alquilado
     $cliente1->devolver(4);

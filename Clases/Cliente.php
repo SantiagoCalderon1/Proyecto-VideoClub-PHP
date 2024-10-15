@@ -9,12 +9,12 @@ class Cliente
     private $numSoportesAlquilados;
     private $maxAlquilerConcurrente;
 
-    public function __construct($nombre, $numero, $maxAlquilerConcurrente = 3)
+    public function __construct($nombre, $numero, $mAlquilerConcurrente = 3)
     {
         $this->nombre = $nombre;
         $this->numero = $numero;
         $this->numSoportesAlquilados = 0;
-        $this->maxAlquilerConcurrente = $maxAlquilerConcurrente;
+        $this->maxAlquilerConcurrente = $mAlquilerConcurrente;
     }
 
     public function getNumero()
@@ -51,15 +51,20 @@ class Cliente
 
     public function alquilar(Soporte $s): bool
     {
-        if ($this->tieneAlquilado($s) == false && ($this->numSoportesAlquilados < $this->maxAlquilerConcurrente)) {
-            $this->numSoportesAlquilados++;
-            array_push($this->soportesAlquilados, $s);
-            echo "<br> Alquilado soporte a: $this->nombre <br>";
-            $s->muestraResumen();
-            return true;
-        } else {
-            echo "<br> El cliente ya tiene alquilado el soporte $s->titulo <br>";
-            return false;
+
+        if($this->numSoportesAlquilados < $this->maxAlquilerConcurrente){
+            if ($this->tieneAlquilado($s) == false){
+                $this->numSoportesAlquilados++;
+                array_push($this->soportesAlquilados, $s);
+                echo "<br> Alquilado soporte a: $this->nombre <br>";
+                $s->muestraResumen();
+                return true;
+            } else {
+                echo "<br> El cliente ya tiene alquilado el soporte $s->titulo <br>";
+                return false;
+            }
+        }else{
+            echo 'Este cliente tiene 3 elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo';
         }
     }
 
