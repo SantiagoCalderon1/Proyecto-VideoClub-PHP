@@ -23,8 +23,9 @@ class Juego extends Soporte
         }
     }
 
-    public function muestraResumen() {
-        parent::muestraResumen();
-        echo '<br>'.$this->muestraJugadoresPosibles();
+    public function muestraResumen()
+    {
+        echo '<br>Consola: ' . $this->consola;
+        parent::muestraResumen() . "<br>" . $this->muestraJugadoresPosibles();
     }
 }
