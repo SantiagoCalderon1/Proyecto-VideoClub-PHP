@@ -35,7 +35,7 @@ class Cliente
 
     public function muestraResumen()
     {
-        echo 'El cliente de nombre ' . $this->nombre . ' tiene un total de ' . $this->soportesAlquilados . ' alquileres.';
+        echo '<br>El cliente de nombre ' . $this->nombre . ' tiene un total de ' . count($this->soportesAlquilados) . ' alquileres.<br>';
     }
 
     public function tieneAlquilado(Soporte $s): bool
@@ -52,49 +52,53 @@ class Cliente
     public function alquilar(Soporte $s): bool
     {
 
-        if($this->numSoportesAlquilados < $this->maxAlquilerConcurrente){
-            if ($this->tieneAlquilado($s) == false){
+        if ($this->tieneAlquilado($s) == false){
+            if($this->numSoportesAlquilados < $this->maxAlquilerConcurrente){
                 $this->numSoportesAlquilados++;
                 array_push($this->soportesAlquilados, $s);
                 echo "<br> Alquilado soporte a: $this->nombre <br>";
                 $s->muestraResumen();
                 return true;
-            } else {
-                echo "<br> El cliente ya tiene alquilado el soporte $s->titulo <br>";
-                return false;
+            }else{
+                echo '<br> Este cliente tiene 3 elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br> ';   
             }
-        }else{
-            echo 'Este cliente tiene 3 elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo';
+        } else {
+            echo "<br> El cliente ya tiene alquilado el soporte $s->titulo <br>";
         }
+        return false;
     }
 
     public function devolver(int $numSoporte): bool
     {
-        $encontrado = false;
-        // Debe comprobar que el soporte estaba alquilado
-        foreach ($this->soportesAlquilados as $clave=>$soporte) {
-            if ($soporte instanceof Soporte) {
-                if ($soporte->getNumero() == $numSoporte) {
-                    $encontrado = true;
-                    unset($this->soportesAlquilados[$clave]); //borrar del array
+        if(count($this->soportesAlquilados)!=0){
+            $encontrado = false;
+            // Debe comprobar que el soporte estaba alquilado
+            foreach ($this->soportesAlquilados as $clave=>$soporte) {
+                if ($soporte instanceof Soporte) {
+                    if ($soporte->getNumero() == $numSoporte) {
+                        $encontrado = true;
+                        unset($this->soportesAlquilados[$clave]); //borrar del array
+                    }
                 }
             }
+            //actualizar la cantidad de soportes alquilados.
+            if ($encontrado) {
+                $this->numSoportesAlquilados--;
+                echo '<br> Se ha completado la devolucion<br> ';
+                return true;
+            } else {
+                echo '<br> No se ha podido encontrar el soporte en los alquileres de este cliente<br> ';
+            }
+        }else{
+            echo "<br>Este cliente no tiene alquilado ningún elemento<br>";
         }
-        //actualizar la cantidad de soportes alquilados.
-        if ($encontrado) {
-            $this->numSoportesAlquilados--;
-            echo 'Se ha completado la devolucion';
-            return true;
-        } else {
-            echo 'No esta alquilado';
-            return false;
-        }
+        return false;
     }
 
     //Informa de cuantos alquileres tiene el cliente y los muestra.
     public function listarAlquileres()
     {
-        echo "El cliente tiene $this->numSoportesAlquilados alquileres";
+        echo "<br><strong>El cliente tiene $this->numSoportesAlquilados alquileres</strong><br>";
 
         foreach ($this->soportesAlquilados as $soporte) {
             $soporte->muestraResumen();
