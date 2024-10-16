@@ -7,9 +7,10 @@ class Dvd extends Soporte
     public $idiomas;
     public $formatPantalla;
 
-    public function __construct($titulo,  $numero, $precio, $idiomas,  $formatPantalla)
+    public function __construct($titulo, $precio, $idiomas,  $formatPantalla)
     {
-        parent::__construct($titulo,  $numero, $precio);
+        parent::__construct($titulo, $precio);
+        $this->numero = parent::getNumero() + 1;
         $this->idiomas = $idiomas;
         $this->formatPantalla = $formatPantalla;
     }
