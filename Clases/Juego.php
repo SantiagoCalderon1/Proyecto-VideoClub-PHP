@@ -6,9 +6,9 @@ class Juego extends Soporte
     private $minNumJugadores;
     private $maxNumJugadores;
 
-    public function __construct($titulo, $numero, $precio, $consula, $minNumJugadores, $maxNumJugadores)
+    public function __construct($titulo, $precio, $consula, $minNumJugadores, $maxNumJugadores)
     {
-        parent::__construct($titulo, $numero, $precio);
+        parent::__construct($titulo, $precio);
         $this->consola = $consula;
         $this->minNumJugadores = $minNumJugadores;
         $this->maxNumJugadores = $maxNumJugadores;
@@ -23,8 +23,10 @@ class Juego extends Soporte
         }
     }
 
-    public function muestraResumen() {
+    public function muestraResumen()
+    {
         parent::muestraResumen();
-        echo '<br>'.$this->muestraJugadoresPosibles();
+        echo "<br> Tipo de consola: ".$this->consola.
+        "<br>" . $this->muestraJugadoresPosibles();
     }
 }
