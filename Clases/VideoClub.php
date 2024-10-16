@@ -18,7 +18,10 @@ class VideoClub
     private function incluirProducto(producto $Soporte) {}
     
     //Santiago
-    public function incluirCintaVideo($titulo, $precio, $duracion) {}
+    public function incluirCintaVideo($titulo, $precio, $duracion) {
+        array_push($this->productos, new CintaVideo($titulo, $precio, $duracion))
+        $this->numProductos++;
+    }
     
     //Anthony
     public function incluirDvd($titulo, $precio, $idiomas, $pantalla) {}
@@ -31,11 +34,6 @@ class VideoClub
 
     //Santiago
     public function listarProductos() {
-        $texto = "Listado de los ".$numProductos." productos disponibles:  ";
-        for ($i=0; $i < count($productos) ; $i++) { 
-            $producto =  $productos[$i];
-            $texto += "<br>".$i.".-".$producto[$i]->muestraResumen();
-        }
     }
 
     //Anthony
