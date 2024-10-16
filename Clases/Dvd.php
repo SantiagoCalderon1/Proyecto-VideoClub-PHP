@@ -10,7 +10,7 @@ class Dvd extends Soporte
     public function __construct($titulo, $precio, $idiomas,  $formatPantalla)
     {
         parent::__construct($titulo, $precio);
-        $this->numero = parent::getNumero() + 1;
+        parent::aumentarNumeroSoporte();
         $this->idiomas = $idiomas;
         $this->formatPantalla = $formatPantalla;
     }
@@ -18,6 +18,7 @@ class Dvd extends Soporte
     public function muestraResumen()
     {
         parent::muestraResumen();
-        echo "<br> Idiomas:" . $this->idiomas . "<br>Formato Pantalla:" . $this->formatPantalla;
+        echo "<br> Idiomas:" . $this->idiomas . 
+        "<br>Formato Pantalla:" . $this->formatPantalla;
     }
 }
