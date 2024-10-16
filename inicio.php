@@ -9,29 +9,33 @@
 
 <body>
     <h1>Inicio PHP</h1>
+    <h2>Prueba Clase Soporte</h2>
     <?php
     //Código de prueba para Clase Soporte
     include "Clases/Soporte.php";
 
-    $soporte1 = new Soporte("Tenet", 22, 3);
+    $soporte1 = new Soporte("Tenet", 3);
     echo "<strong>" . $soporte1->titulo . "</strong>";
     echo "<br>Precio: " . $soporte1->getPrecio() . " euros";
     echo "<br>Precio IVA incluido: " . $soporte1->getPrecioConIVA() . " euros";
+    echo "<br>";
     $soporte1->muestraResumen();
     ?>
     <br>
-    <h2>Prueba Origen</h2>
+    <h2>Prueba Clase Dvd</h2>
     <?php
     //Código de prueba para Clase Dvd
     include "Clases/Dvd.php";
 
-    $miDvd = new Dvd("Origen", 24, 15, "es,en,fr", "16:9");
+    $miDvd = new Dvd("Origen", 15, "es,en,fr", "16:9");
     echo "<strong>" . $miDvd->titulo . "</strong>";
     echo "<br>Precio: " . $miDvd->getPrecio() . " euros";
     echo "<br>Precio IVA incluido: " . $miDvd->getPrecioConIva() . " euros";
+    echo "<br>";
     $miDvd->muestraResumen();
     ?>
 
+    <h2>Prueba Clase CintaVideo</h2>
     <?php
     //Código de prueba para Clase CintaVideo
     include "Clases/CintaVideo.php";
@@ -40,9 +44,19 @@
     echo "<br>Precio: " . $miCinta->getPrecio() . " euros"; 
     echo "<br>Precio IVA incluido: " . $miCinta->getPrecioConIva() . " euros";
     $miCinta->muestraResumen();
+    ?>   
+    <h2>Prueba Clase Juego</h2>
+    <?php
+    include "Clases/Juego.php";
+
+    $miJuego = new Juego("The Last of Us Part II", 49.99, "PS4", 1, 1);
+    echo "<strong>" . $miJuego->titulo . "</strong>";
+    echo "<br>Precio: " . $miJuego->getPrecio() . " euros";
+    echo "<br>Precio IVA incluido: " . $miJuego->getPrecioConIva() . " euros";
+    echo "<br>";
+    $miJuego->muestraResumen();
     ?>
 
-    
 </body>
 
 </html>
