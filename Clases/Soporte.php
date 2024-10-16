@@ -4,22 +4,21 @@ class Soporte
     /**Definir una constante mediante un propiedad privada y estática 
      * denominada IVA con un valor del 21%
      **/
+
+    protected static $numero_soporte = 0;
+
     private static $IVA =  0.21;
     public $titulo;
-    protected $numero = 0;
+    protected $numero;
     private $precio;
 
     public function __construct($titulo, $precio)
     {
         $this->titulo = $titulo;
         $this->precio = $precio;
-        $this->aumentarNumeroSoporte();
+        $this->numero = ++self::$numero_soporte;
     }
 
-    public function aumentarNumeroSoporte()
-    {
-        $this->numero = ++$this->numero;
-    }
 
     public function getPrecio()
     {

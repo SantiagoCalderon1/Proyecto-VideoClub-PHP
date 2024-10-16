@@ -16,7 +16,7 @@ class Dvd extends Soporte
     public function muestraResumen()
     {
         parent::muestraResumen();
-        echo "<br> Idiomas:" . $this->idiomas . 
-        "<br>Formato Pantalla:" . $this->formatPantalla;
+        echo "<br> Idiomas: " . $this->idiomas . 
+        "<br>Formato Pantalla: " . $this->formatPantalla;
     }
 }
