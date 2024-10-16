@@ -3,14 +3,12 @@ include_once "Soporte.php";
 
 class Dvd extends Soporte
 {
-
     public $idiomas;
     public $formatPantalla;
 
     public function __construct($titulo, $precio, $idiomas,  $formatPantalla)
     {
         parent::__construct($titulo, $precio);
-        parent::aumentarNumeroSoporte();
         $this->idiomas = $idiomas;
         $this->formatPantalla = $formatPantalla;
     }
