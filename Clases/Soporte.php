@@ -6,31 +6,15 @@ class Soporte
      **/
     private static $IVA =  0.21;
     public $titulo;
-    protected $numero;
+    protected $numero = 0;
     private $precio;
 
-    public function __construct($titulo,  $numero, $precio)
+    public function __construct($titulo, $precio)
     {
-
         $this->titulo = $titulo;
-        $this->numero = $numero;
         $this->precio = $precio;
+        $this->numero = ++$this->numero;
     }
-
-    /*
-    public function __construct($titulo,  $numero, $precio)
-    {
-
-        $this->titulo = $titulo;
-        $this->numero = $numero;
-        $this->precio = $precio;
-    }
-    
-    
-    */
-    
-
-    
 
     public function getPrecio()
     {
