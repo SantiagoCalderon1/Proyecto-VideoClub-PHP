@@ -18,6 +18,7 @@
     echo "<strong>" . $soporte1->titulo . "</strong>";
     echo "<br>Precio: " . $soporte1->getPrecio() . " euros";
     echo "<br>Precio IVA incluido: " . $soporte1->getPrecioConIVA() . " euros";
+    echo "<br>";
     $soporte1->muestraResumen();
     ?>
     <br>
@@ -30,6 +31,7 @@
     echo "<strong>" . $miDvd->titulo . "</strong>";
     echo "<br>Precio: " . $miDvd->getPrecio() . " euros";
     echo "<br>Precio IVA incluido: " . $miDvd->getPrecioConIva() . " euros";
+    echo "<br>";
     $miDvd->muestraResumen();
     ?>
 
