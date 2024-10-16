@@ -13,6 +13,11 @@ class Soporte
     {
         $this->titulo = $titulo;
         $this->precio = $precio;
+        $this->aumentarNumeroSoporte();
+    }
+
+    public function aumentarNumeroSoporte()
+    {
         $this->numero = ++$this->numero;
     }
 
