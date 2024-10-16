@@ -9,7 +9,6 @@ class Juego extends Soporte
     public function __construct($titulo, $precio, $consula, $minNumJugadores, $maxNumJugadores)
     {
         parent::__construct($titulo, $precio);
-         parent::aumentarNumeroSoporte();
         $this->consola = $consula;
         $this->minNumJugadores = $minNumJugadores;
         $this->maxNumJugadores = $maxNumJugadores;
