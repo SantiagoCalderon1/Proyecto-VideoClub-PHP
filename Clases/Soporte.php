@@ -15,8 +15,22 @@ class Soporte
         $this->titulo = $titulo;
         $this->numero = $numero;
         $this->precio = $precio;
-
     }
+
+    /*
+    public function __construct($titulo,  $numero, $precio)
+    {
+
+        $this->titulo = $titulo;
+        $this->numero = $numero;
+        $this->precio = $precio;
+    }
+    
+    
+    */
+    
+
+    
 
     public function getPrecio()
     {
@@ -35,6 +49,9 @@ class Soporte
 
     public function muestraResumen()
     {
-        echo "<br>".$this->titulo . "<br>" . $this->getPrecio() . " € " . "(IVA no incluido)";
+        echo "<br> Titulo: " . $this->titulo .
+            "<br> Numero de soporte: " . $this->numero .
+            "<br> Precio:" . $this->getPrecio() . " € (IVA no incluido)".
+            "<br> Precio: ".$this->getPrecioConIva()." € (IVA incluido)";
     }
 }

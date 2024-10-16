@@ -4,8 +4,8 @@ include_once "Soporte.php";
 class Dvd extends Soporte
 {
 
-    public $idiomas = "";
-    public $formatPantalla = "";
+    public $idiomas;
+    public $formatPantalla;
 
     public function __construct($titulo,  $numero, $precio, $idiomas,  $formatPantalla)
     {
