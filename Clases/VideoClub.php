@@ -22,7 +22,7 @@ class VideoClub
     
     //Santiago
     public function incluirCintaVideo($titulo, $precio, $duracion) {
-        incluirProducto(new CintaVideo($titulo, $precio, $duracion));
+        $this->incluirProducto(new CintaVideo($titulo, $precio, $duracion));
     }
     
     //Anthony
@@ -30,7 +30,7 @@ class VideoClub
     
     //Santiago
     public function incluirJuego($titulo, $precio, $consola, $minJ, $maxJ) {
-        incluirProducto(new  Juego($titulo, $precio, $consola, $minJ, $maxJ));
+        $this->incluirProducto(new  Juego($titulo, $precio, $consola, $minJ, $maxJ));
     }
     
     //Anthony
@@ -39,24 +39,18 @@ class VideoClub
     //Santiago
     public function listarProductos() {
         $contador = 0;
+        //Recorre los productos guardados en el array
         foreach ($this->productos as $producto) {
-            $contador++;
-            $alquilado = false;
+
+            //recorre los socios guardados en el array
             foreach ($this->socios as $socio) {
-                if($socio->tieneAlquilado($producto)){
-                    $alquilado=true;
+                //Por cada socio pregunta si tiene alquilado el producto
+                if(!$socio->tieneAlquilado($producto)){
+                    //si lo tiene alquilado lo muestra en la lista
+                    echo $contador++.".-". $producto->muestraResumen();
                 }
             }
-            if ($alquilado==true){
-                echo $contador.".-". $producto->muestraResumen();
-            }
         }
-
-        /*
-        productos[]
-
-
-        */
     }
 
     //Anthony
