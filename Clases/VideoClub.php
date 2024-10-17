@@ -41,12 +41,15 @@ class VideoClub
         $contador = 0;
         foreach ($this->productos as $producto) {
             $contador++;
-
+            $alquilado = false;
             foreach ($this->socios as $socio) {
-                
+                if($socio->tieneAlquilado($producto)){
+                    $alquilado=true;
+                }
             }
-
-            echo $contador.".-". 
+            if ($alquilado==true){
+                echo $contador.".-". $producto->muestraResumen();
+            }
         }
 
         /*
