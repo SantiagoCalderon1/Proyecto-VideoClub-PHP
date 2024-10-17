@@ -11,7 +11,7 @@ class CintaVideo extends Soporte{
 
     public function muestraResumen(){
         parent::muestraResumen();
-        echo "<br>".$this->duracion;
+        echo "<br>Duracion: ".$this->duracion . " minutos";
     }
 }
 ?>
