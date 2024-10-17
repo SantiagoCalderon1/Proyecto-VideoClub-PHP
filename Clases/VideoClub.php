@@ -26,7 +26,9 @@ class VideoClub
     }
     
     //Anthony
-    public function incluirDvd($titulo, $precio, $idiomas, $pantalla) {}
+    public function incluirDvd($titulo, $precio, $idiomas, $pantalla) {
+        $this->incluirProducto(new Dvd($titulo, $precio, $idiomas, $pantalla));
+    }
     
     //Santiago
     public function incluirJuego($titulo, $precio, $consola, $minJ, $maxJ) {
@@ -47,7 +49,7 @@ class VideoClub
                 //Por cada socio pregunta si tiene alquilado el producto
                 if(!$socio->tieneAlquilado($producto)){
                     //si lo tiene alquilado lo muestra en la lista
-                    echo $contador++.".-". $producto->muestraResumen();
+                    echo ++$contador.".-". $producto->muestraResumen();
                 }
             }
         }
