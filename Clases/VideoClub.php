@@ -34,6 +34,7 @@ class VideoClub
 
     //Santiago
     public function listarProductos() {
+        echo $this->productos();
     }
 
     //Anthony
