@@ -61,7 +61,14 @@ class VideoClub
     }
 
     //Anthony
-    public function listarSocios() {}
+    public function listarSocios() {
+        
+        $contador = 0;
+        echo "<br>Listado de " . count($this->socios) . " socios del videoclub:<br>";
+        foreach ($this->socios as $socio) {
+            echo ++$contador.".- Cliente ".$socio->getNumero() . ": ". $socio->nombre;
+        }
+    }
 
     //Santiago
     public function alquilarSocioProducto($numeroCliente, $numeroSoporte) {}
