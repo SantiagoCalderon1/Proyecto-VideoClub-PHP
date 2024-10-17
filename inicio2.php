@@ -38,10 +38,10 @@
     $cliente1->alquilar($soporte4);
     //este soporte no lo tiene alquilado
     $cliente1->devolver(4);
-    //devuelvo un soporte que sí que tiene alquilado
-    $cliente1->devolver(2);
     //alquilo otro soporte
     $cliente1->alquilar($soporte4);
+    //devuelvo un soporte que sí que tiene alquilado
+    $cliente1->devolver(2);
     //listo los elementos alquilados
     $cliente1->listarAlquileres();
     //este cliente no tiene alquileres
