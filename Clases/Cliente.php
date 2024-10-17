@@ -3,28 +3,26 @@ include_once "Soporte.php";
 
 class Cliente
 {
+
+    protected static $numero_cliente = 0;
+
     public $nombre;
     private $numero;
     private $soportesAlquilados = [];
     private $numSoportesAlquilados;
     private $maxAlquilerConcurrente;
 
-    public function __construct($nombre, $numero, $mAlquilerConcurrente = 3)
+    public function __construct($nombre, $mAlquilerConcurrente = 3)
     {
         $this->nombre = $nombre;
-        $this->numero = $numero;
         $this->numSoportesAlquilados = 0;
         $this->maxAlquilerConcurrente = $mAlquilerConcurrente;
+        $this->numero = ++self::$numero_cliente;
     }
 
     public function getNumero()
     {
         return  $this->numero;
-    }
-
-    public function setNumero($numero)
-    {
-        return $this->numero = $numero;
     }
 
     public function getNumSoportesAlquilados()

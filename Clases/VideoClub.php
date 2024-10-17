@@ -36,7 +36,12 @@ class VideoClub
     }
     
     //Anthony
-    public function incluirSocio($nombre, $maxAlquileresConcurrentes = 3) {}
+    public function incluirSocio($nombre, $maxAlquileresConcurrentes = 3) {
+        $socio = new Cliente($nombre, $maxAlquileresConcurrentes);
+        array_push($this->socios,$socio);
+        $this->numSocios++;
+        echo "Incluido socio ".$socio->getNumero();
+    }
 
     //Santiago
     public function listarProductos() {
