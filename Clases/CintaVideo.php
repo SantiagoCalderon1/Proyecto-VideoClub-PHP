@@ -2,7 +2,7 @@
 include_once "Soporte.php";
 
 class CintaVideo extends Soporte{
-    private int $duracion;
+    private $duracion;
 
     public function __construct($titulo, $precio, $duracion){
         parent::__construct($titulo, $precio);
