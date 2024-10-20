@@ -3,7 +3,6 @@ include_once "Soporte.php";
 
 class Cliente
 {
-
     protected static $numero_cliente = 0;
 
     public $nombre;
@@ -58,7 +57,7 @@ class Cliente
                 $s->muestraResumen();
                 return true;
             }else{
-                echo '<br> Este cliente tiene 3 elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br> ';   
+                echo '<br> Este cliente tiene '.$this->numSoportesAlquilados.' elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br> ';   
             }
         } else {
             echo "<br> El cliente ya tiene alquilado el soporte $s->titulo <br>";
