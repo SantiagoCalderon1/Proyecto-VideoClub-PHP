@@ -8,12 +8,11 @@ Proyecto de un Videoclub programado con PHP (basado en la propuesta que hace el 
 
 Responsabilidades:
 - Anthony:
-    + Cliente --> Sin terminar
+    + Cliente --> Terminado
     + CintaVideo --> Terminado
-    + VideoClub(1,3,5,7)
+    + VideoClub(1,3,5,7) --> Terminado
 - Santiago:
     + Soporte --> Terminado
     + Dvd --> Terminado
     + Juego --> Terminado
-    + VideoClub(2,4,6,8)
-
+    + VideoClub(2,4,6,8) --> Terminado
