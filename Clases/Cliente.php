@@ -70,10 +70,10 @@ class Cliente
      * Método para alquilar un soporte
      * Verifica si el cliente ya tiene alquilado el soporte y si no ha alcanzado el límite de alquileres permitidos
      * @param Soporte $s - Soporte que el cliente desea alquilar
-     * @return bool - Devuelve true si el alquiler fue exitoso, false en caso contrario
+     * @return Cliente - Devuelve true si el alquiler fue exitoso, false en caso contrario
      */
-    public function alquilar(Soporte $s): bool
-    {
+    public function alquilar(Soporte $s): Cliente
+    { 
         // Verificamos si el cliente no tiene alquilado el soporte
         if (!$this->tieneAlquilado($s)) {
             // Comprobamos si el cliente no ha excedido su límite de alquileres
@@ -86,7 +86,9 @@ class Cliente
                 echo "<br> Alquilado soporte a: $this->nombre <br>";
                 // Mostramos el resumen del soporte alquilado
                 $s->muestraResumen();
-                return true;
+
+
+                return $this;
             } else {
                 // Mensaje si el cliente ha alcanzado el límite de alquileres
                 echo '<br> Este cliente tiene ' . $this->numSoportesAlquilados . ' elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br> ';
@@ -95,7 +97,8 @@ class Cliente
             // Mensaje si el cliente ya tiene alquilado el mismo soporte
             echo "<br> El cliente ya tiene alquilado el soporte $s->titulo <br>";
         }
-        return false;
+
+        return $this;
     }
 
     /**
