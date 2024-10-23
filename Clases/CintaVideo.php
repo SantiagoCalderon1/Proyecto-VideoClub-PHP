@@ -1,4 +1,6 @@
 <?php
+
+use Dwes\Soporte;
 include_once "Soporte.php";
 
 class CintaVideo extends Soporte

@@ -1,4 +1,6 @@
 <?php
+
+use Dwes\Soporte\ClaseBase;
 include_once "Soporte.php";
 
 class Juego extends Soporte

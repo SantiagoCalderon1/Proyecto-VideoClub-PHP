@@ -1,4 +1,7 @@
 <?php
+namespace Dwes;
+
+use Interfaces\Resumible;
 include_once "Interfaces/Resumible.php";
 
 abstract class Soporte implements Resumible
