@@ -1,7 +1,7 @@
 <?php
 include_once "Clases/VideoClub.php"; // No incluimos nada más
 
-$vc = new Videoclub("Severo 8A"); 
+$vc = new VideoClub("Severo 8A"); 
 
 echo "<h2>Incluyendo Soportes</h2>";
 //voy a incluir unos cuantos soportes de prueba 

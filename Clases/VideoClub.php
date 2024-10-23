@@ -1,8 +1,12 @@
 <?php
-include_once "CintaVideo.php";
-include_once "Dvd.php";
-include_once "Juego.php";
+
+namespace Dwes\ProyectoVideoclub;
+
+//include_once "CintaVideo.php";
+//include_once "Dvd.php";
+//include_once "Juego.php";
 include_once "Cliente.php";
+include_once "Soporte.php";
 
 class VideoClub
 {
