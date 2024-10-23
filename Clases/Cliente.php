@@ -73,7 +73,7 @@ class Cliente
      * @return Cliente - Devuelve true si el alquiler fue exitoso, false en caso contrario
      */
     public function alquilar(Soporte $s): Cliente
-    { 
+    {
         // Verificamos si el cliente no tiene alquilado el soporte
         if (!$this->tieneAlquilado($s)) {
             // Comprobamos si el cliente no ha excedido su límite de alquileres

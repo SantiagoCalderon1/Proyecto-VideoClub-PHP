@@ -111,8 +111,10 @@ class VideoClub
                 foreach ($this->productos as $producto) {
                     if ($producto->getNumero() === $numeroSoporte) { // Si encuentra el producto
                         $socio->alquilar($producto); // Realiza el alquiler del producto
+                     return $this;
                     }
                 }
+               
             }
         }
     }
