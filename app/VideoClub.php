@@ -2,13 +2,12 @@
 
 //namespace Dwes\ProyectoVideoClub\Productos;
 
+namespace Dwes\ProyectoVideoClub\app;
 
-namespace Dwes\ProyectoVideoClub;
-
-use Dwes\ProyectoVideoClub\CintaVideo;
-use Dwes\ProyectoVideoClub\Dvd;
-use Dwes\ProyectoVideoClub\Juego;
-use Dwes\ProyectoVideoClub\Cliente;
+use Dwes\ProyectoVideoClub\app\CintaVideo;
+use Dwes\ProyectoVideoClub\app\Dvd;
+use Dwes\ProyectoVideoClub\app\Juego;
+use Dwes\ProyectoVideoClub\app\Cliente;
 
 class VideoClub
 {

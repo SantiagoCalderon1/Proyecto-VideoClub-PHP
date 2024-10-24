@@ -1,9 +1,9 @@
 <?php
 //namespace Dwes\ProyectoVideoClub\Productos
 
-namespace Dwes\ProyectoVideoClub;
+namespace Dwes\ProyectoVideoClub\app;
 
-include_once("ProyectoVideoClub/Soporte.php");
+include_once("Soporte.php");
 
 //use Dwes\ProyectoVideoClub\Clases\Soporte;
 
