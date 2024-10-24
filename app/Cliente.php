@@ -1,5 +1,9 @@
 <?php
-include_once "Soporte.php";
+//namespace Dwes\ProyectoVideoClub\Clientes;
+namespace Dwes\ProyectoVideoClub\app;
+
+include_once("Soporte.php");
+
 
 class Cliente
 {

@@ -1,8 +1,13 @@
 <?php
-include_once "CintaVideo.php";
-include_once "Dvd.php";
-include_once "Juego.php";
-include_once "Cliente.php";
+
+//namespace Dwes\ProyectoVideoClub\Productos;
+
+namespace Dwes\ProyectoVideoClub\app;
+
+use Dwes\ProyectoVideoClub\app\CintaVideo;
+use Dwes\ProyectoVideoClub\app\Dvd;
+use Dwes\ProyectoVideoClub\app\Juego;
+use Dwes\ProyectoVideoClub\app\Cliente;
 
 class VideoClub
 {
@@ -111,12 +116,10 @@ class VideoClub
                 foreach ($this->productos as $producto) {
                     if ($producto->getNumero() === $numeroSoporte) { // Si encuentra el producto
                         $socio->alquilar($producto); // Realiza el alquiler del producto
-                     return $this;
+                        return $this;
                     }
                 }
-               
             }
         }
     }
 }
-?>
