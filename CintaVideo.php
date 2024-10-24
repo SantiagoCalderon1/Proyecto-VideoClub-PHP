@@ -1,7 +1,10 @@
 <?php
+//namespace Dwes\ProyectoVideoClub\Productos;
+namespace Dwes\ProyectoVideoClub;
 
-use Dwes\Soporte;
-include_once "Soporte.php";
+include_once("ProyectoVideoClub/Soporte.php");
+
+
 
 class CintaVideo extends Soporte
 {

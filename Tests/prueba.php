@@ -1,10 +1,7 @@
 <?php
 // tests/prueba.php
 
-use Dwes\ProyectoVideoclub\Cliente;
-use Dwes\ProyectoVideoclub\Soporte;
 use Dwes\ProyectoVideoclub\VideoClub;
-
 
 // Crear instancias de clases
 $vc = new VideoClub("Severo 8A"); 

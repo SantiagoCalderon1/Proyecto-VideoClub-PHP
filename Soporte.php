@@ -1,7 +1,13 @@
 <?php
-namespace Dwes\ProyectoVideoclub;
+//namespace Dwes\ProyectoVideoClub\Productos;
+namespace Dwes\ProyectoVideoClub;
 
-include_once "../Interfaces/Resumible.php";
+
+include_once("ProyectoVideoClub/Resumible.php");
+
+
+
+//use Dwes\ProyectoVideoClub\Resumible;
 
 abstract class Soporte implements Resumible
 {
