@@ -1,6 +1,6 @@
 
     <?php
-    require_once("../autoload.php");
+   include("../autoload.php");
 
     use ProyectoVideoClub\app\VideoClub;
 
