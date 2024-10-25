@@ -1,6 +1,6 @@
 <?php
 spl_autoload_register(function ($class) {
-    // Define el prefijo del namespace (si usas namespaces)
+    // Define el prefijo del namespace 
     $prefix = 'ProyectoVideoClub\\app\\';
     $baseDir = __DIR__ . '/app/';
 
