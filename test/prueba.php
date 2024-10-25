@@ -1,7 +1,19 @@
 <?php
 // tests/prueba.php
+    include_once("../app/Cliente.php");
+    include_once("../app/VideoClub.php");
 
-use Dwes\ProyectoVideoclub\VideoClub;
+    include_once("../app/CintaVideo.php");
+    include_once("../app/Dvd.php");
+    include_once("../app/Juego.php");
+    include_once("../app/Soporte.php");
+
+
+use Dwes\ProyectoVideoClub\app\VideoClub;
+use Dwes\ProyectoVideoClub\Util\SoporteNoEncontradoException;
+use Dwes\ProyectoVideoClub\Util\ClienteNoEncontradoException;
+use Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException;
+use Dwes\ProyectoVideoClub\Util\CupoSuperadoException;
 
 // Crear instancias de clases
 $vc = new VideoClub("Severo 8A"); 
@@ -23,4 +35,8 @@ echo PHP_EOL;
 echo PHP_EOL;
 
 // Alquilar productos
-$vc->alquilaSocioProducto(2,3)->alquilaSocioProducto(2,4); 
+try{
+    $vc->alquilaSocioProducto(2,3)->alquilaSocioProducto(2,4); 
+}catch(Exception $e){
+    throw new VideoclubException($e->getMessage(),$e->getCode(),$e);
+}

@@ -8,6 +8,10 @@ use Dwes\ProyectoVideoClub\app\CintaVideo;
 use Dwes\ProyectoVideoClub\app\Dvd;
 use Dwes\ProyectoVideoClub\app\Juego;
 use Dwes\ProyectoVideoClub\app\Cliente;
+use Dwes\ProyectoVideoClub\Util\SoporteNoEncontradoException;
+use Dwes\ProyectoVideoClub\Util\ClienteNoEncontradoException;
+use Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException;
+use Dwes\ProyectoVideoClub\Util\CupoSuperadoException;
 
 class VideoClub
 {
@@ -109,17 +113,42 @@ class VideoClub
     // Método público para alquilar un producto a un socio
     public function alquilaSocioProducto($numeroCliente, $numeroSoporte)
     {
+
+        $socioEncontrado = null;
         // Busca el socio correspondiente por su número
         foreach ($this->socios as $socio) {
-            if ($socio->getNumero() === $numeroCliente) { // Si encuentra el socio
-                // Busca el producto correspondiente por su número
-                foreach ($this->productos as $producto) {
-                    if ($producto->getNumero() === $numeroSoporte) { // Si encuentra el producto
-                        $socio->alquilar($producto); // Realiza el alquiler del producto
-                        return $this;
-                    }
-                }
+            if ($socio->getNumero() === $numeroCliente) {// Si encuentra el socio
+                $socioEncontrado = $socio;//guarda el socio
+                break;//deja de recorrer
             }
         }
+
+        if (!$socioEncontrado) {//si no se ha encontrado socio se lanza excepcion
+            throw new ClienteNoEncontradoException("Socio con número $numeroCliente no encontrado.");
+        }
+
+        $productoEncontrado = null;
+        // Busca el producto correspondiente por su número
+        foreach ($this->productos as $producto) {// Si encuentra el producto
+            if ($producto->getNumero() === $numeroSoporte) {
+                $productoEncontrado = $producto;//guarda el producto
+                break;
+            }
+        }
+
+        if (!$productoEncontrado) {//si el producto no se ha encontrado se lanza una excepcion
+            throw new SoporteNoEncontradoException("Producto con número $numeroSoporte no encontrado.");
+        }
+
+        if ($socioEncontrado->tieneAlquilado($productoEncontrado)) {//si el socio ya tenia ese producto alquilado se lanza una excepcion
+            throw new SoporteYaAlquiladoException("El producto ya está alquilado.");
+        }
+
+        if($socioEncontrado->getNumSoportesAlquilados() < $socioEncontrado->getMaxAlquilerConcurrente()){//si el socio ha superado su cupo de soportes alquilables se lanza una excepcion
+            throw new CupoSuperadoException("El producto ya está alquilado.");
+        }
+
+        $socioEncontrado->alquilar($productoEncontrado);// Realiza el alquiler del producto al socio
+        return $this;//Devuelve el objeto con el alquiler ya realizado
     }
 }

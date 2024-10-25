@@ -45,6 +45,12 @@ class Cliente
         return $this->numSoportesAlquilados;
     }
 
+    // Método que devuelve la cantidad maxima de soportes que el cliente puede tener
+    public function getMaxAlquilerConcurrente()
+    {
+        return $this->maxAlquilerConcurrente;
+    }
+
     // Método que muestra un resumen de los alquileres del cliente
     public function muestraResumen()
     {
