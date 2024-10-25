@@ -1,13 +1,16 @@
 <?php
 // tests/prueba.php
-    include_once("../app/Cliente.php");
-    include_once("../app/VideoClub.php");
-
-    include_once("../app/CintaVideo.php");
-    include_once("../app/Dvd.php");
-    include_once("../app/Juego.php");
-    include_once("../app/Soporte.php");
-
+    /*
+    require_once '../app/VideoClub.php';
+    require_once '../app/CintaVideo.php';
+    require_once '../app/Dvd.php';
+    require_once '../app/Juego.php';
+    require_once '../app/Cliente.php';
+    require_once '../Util/SoporteNoEncontradoException.php';
+    require_once '../Util/ClienteNoEncontradoException.php';
+    require_once '../Util/SoporteYaAlquiladoException.php';
+    require_once '../Util/CupoSuperadoException.php';
+    */
 
 use Dwes\ProyectoVideoClub\app\VideoClub;
 use Dwes\ProyectoVideoClub\Util\SoporteNoEncontradoException;
