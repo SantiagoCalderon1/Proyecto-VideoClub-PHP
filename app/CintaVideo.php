@@ -2,10 +2,6 @@
 //namespace Dwes\ProyectoVideoClub\Productos;
 namespace ProyectoVideoClub\app;
 
-include_once("Soporte.php");
-
-
-
 class CintaVideo extends Soporte
 {
     // Atributo privado que almacena la duración de la cinta en minutos

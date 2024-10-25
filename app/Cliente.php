@@ -2,9 +2,6 @@
 //namespace Dwes\ProyectoVideoClub\Clientes;
 namespace ProyectoVideoClub\app;
 
-include_once("Soporte.php");
-
-
 class Cliente
 {
     // Variable estática que lleva el control del número de clientes creados

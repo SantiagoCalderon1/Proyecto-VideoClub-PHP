@@ -1,7 +1,7 @@
 <?php
 // tests/prueba.php
 
-use ProyectoVideoclub\app\VideoClub;
+use Dwes\ProyectoVideoclub\app\VideoClub;
 
 // Crear instancias de clases
 $vc = new VideoClub("Severo 8A"); 

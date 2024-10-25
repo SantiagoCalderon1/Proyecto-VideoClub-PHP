@@ -1,13 +1,6 @@
 <?php
-
 //namespace Dwes\ProyectoVideoClub\Productos;
-
 namespace ProyectoVideoClub\app;
-
-use ProyectoVideoClub\app\CintaVideo;
-use ProyectoVideoClub\app\Dvd;
-use ProyectoVideoClub\app\Juego;
-use ProyectoVideoClub\app\Cliente;
 
 class VideoClub
 {
