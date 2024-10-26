@@ -1,16 +1,7 @@
-
     <?php
+    require_once 'autoload.php';
 
-    include_once("../app/Cliente.php");
-    include_once("../app/VideoClub.php");
-
-    include_once("../app/CintaVideo.php");
-    include_once("../app/Dvd.php");
-    include_once("../app/Juego.php");
-    include_once("../app/Soporte.php");
-
-
-    use Dwes\ProyectoVideoClub\app\VideoClub;
+    use ProyectoVideoClub\app\VideoClub;
 
     echo '<h1>Inicio 3 </h1>';
 

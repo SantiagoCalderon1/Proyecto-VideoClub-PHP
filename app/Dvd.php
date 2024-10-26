@@ -1,10 +1,6 @@
 <?php
 //namespace Dwes\ProyectoVideoClub\Productos;
-
-namespace Dwes\ProyectoVideoClub\app;
-
-include_once("Soporte.php");
-
+namespace ProyectoVideoClub\app;
 
 
 class Dvd extends Soporte

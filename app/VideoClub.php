@@ -1,5 +1,4 @@
 <?php
-
 //namespace Dwes\ProyectoVideoClub\Productos;
 
 namespace Dwes\ProyectoVideoClub\app;

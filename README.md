@@ -25,6 +25,6 @@ Responsabilidades VideoClub 2.0:
     + 337
 - Santiago:
     + 330 --> Terminado
-    + 332
+    + 332 --> Terminado
     + 334
     + 336 --> Terminado

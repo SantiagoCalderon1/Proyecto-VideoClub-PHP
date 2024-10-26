@@ -1,7 +1,6 @@
 <?php 
 //namespace Dwes\ProyectoVideoClub\Interfaces;
-
-namespace Dwes\ProyectoVideoClub\app;
+namespace ProyectoVideoClub\app;
 
 interface Resumible{
     public function muestraResumen();
