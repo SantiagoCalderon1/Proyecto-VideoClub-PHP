@@ -164,12 +164,13 @@ class VideoClub
     // Método público para alquilar un producto a un socio
     public function alquilarSocioProducto($numeroCliente, $numeroSoporte)
     {
-        // Verifica si el socio existe
-        $socioEncontrado = $this->encontrarSocio($numeroCliente);
-        $productoEncontrado = $this->encontrarSoporte($numeroSoporte);
 
-        // Realiza el alquiler del producto al socio
         try {
+            // Verifica si el socio existe
+            $socioEncontrado = $this->encontrarSocio($numeroCliente);
+            $productoEncontrado = $this->encontrarSoporte($numeroSoporte);
+
+            // Realiza el alquiler del producto al socio
             $socioEncontrado->alquilar($productoEncontrado); // Lanza excepciones si es necesario
             $this->numTotalAlquileres++; // Incrementa el contador total de alquileres
             $productoEncontrado->setEstadoAlquilado(true); // Modifica la propiedad Alquilado del producto
@@ -185,41 +186,45 @@ class VideoClub
 
     public function alquilarSocioProductos(int $numSocio, array $numerosProductos)
     {
-        // Verifica si el socio existe
-        $socioEncontrado = $this->encontrarSocio($numSocio);
+        try{
+            // Verifica si el socio existe
+            $socioEncontrado = $this->encontrarSocio($numSocio);
 
-        // Array para almacenar productos disponibles
-        $productosDisponibles = [];
+            // Array para almacenar productos disponibles
+            $productosDisponibles = [];
 
-        // Verificar la disponibilidad de todos los productos
-        foreach ($numerosProductos as $numeroProducto) {
-            // Verifica si el producto existe
-            $productoEncontrado = $this->encontrarSoporte($numeroProducto);
+            // Verificar la disponibilidad de todos los productos
+            foreach ($numerosProductos as $numeroProducto) {
+                // Verifica si el producto existe
+                $productoEncontrado = $this->encontrarSoporte($numeroProducto);
 
-            // Comprueba si el producto ya está alquilado
-            if ($productoEncontrado->alquilado) {
-                throw new SoporteYaAlquiladoException("El producto {$productoEncontrado->getNombre()} ya está alquilado.");
+                // Comprueba si el producto ya está alquilado
+                if ($productoEncontrado->alquilado) {
+                    throw new SoporteYaAlquiladoException("El producto {$productoEncontrado->getNombre()} ya está alquilado.");
+                }
+
+                // Si todo está bien, agrega el producto a la lista de disponibles
+                $productosDisponibles[] = $productoEncontrado;
             }
 
-            // Si todo está bien, agrega el producto a la lista de disponibles
-            $productosDisponibles[] = $productoEncontrado;
-        }
-
-        // Si todos los productos están disponibles, procede a alquilarlos
-        foreach ($productosDisponibles as $producto) {
-            try {
-                $socioEncontrado->alquilar($producto); // Alquila el producto al socio
-                $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);
-                $productoEncontrado->setEstadoAlquilado(true);
-            } catch (CupoSuperadoException $e) {
-                echo "Error al alquilar: " . $e->getMessage() . "<br>";
-                // Manejo de errores específicos del cupo superado
-            } catch (\Exception $e) {
-                echo "Error inesperado: " . $e->getMessage() . "<br>";
-                // Manejo de otros errores
+            // Si todos los productos están disponibles, procede a alquilarlos
+            foreach ($productosDisponibles as $producto) {
+                try {
+                    $socioEncontrado->alquilar($producto); // Alquila el producto al socio
+                    $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);
+                    $productoEncontrado->setEstadoAlquilado(true);
+                } catch (CupoSuperadoException $e) {
+                    echo "Error al alquilar: " . $e->getMessage() . "<br>";
+                    // Manejo de errores específicos del cupo superado
+                } catch (\Exception $e) {
+                    echo "Error inesperado: " . $e->getMessage() . "<br>";
+                    // Manejo de otros errores
+                }
             }
-        }
 
+        }catch(){
+
+        }
         return $this; // Devuelve el objeto para permitir encadenamiento
     }
 
