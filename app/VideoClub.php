@@ -4,9 +4,12 @@
 namespace ProyectoVideoClub\app;
 
 use ProyectoVideoClub\util\ClienteNoEncontradoException;
-use ProyectoVideoClub\util\CupoSuperadoException;
 use ProyectoVideoClub\util\SoporteNoEncontradoException;
 use ProyectoVideoClub\util\SoporteYaAlquiladoException;
+use ProyectoVideoClub\util\CupoSuperadoException;
+
+
+
 
 use ProyectoVideoClub\app\CintaVideo;
 use ProyectoVideoClub\app\Dvd;
@@ -114,32 +117,45 @@ class VideoClub
     public function alquilarSocioProducto($numeroCliente, $numeroSoporte)
     {
         $socioEncontrado = null;
+        $productoEncontrado = null;
+
         // Busca el socio correspondiente por su número
         foreach ($this->socios as $socio) {
-            if ($socio->getNumero() === $numeroCliente) { // Si encuentra el socio
-                $socioEncontrado = $socio; //guarda el socio
-                break; //deja de recorrer
+            if ($socio->getNumero() === $numeroCliente) {
+                $socioEncontrado = $socio;
+                break;
             }
         }
 
-        if ($socioEncontrado != null) {
-            $productoEncontrado = null;
-            // Busca el producto correspondiente por su número
-            foreach ($this->productos as $producto) { // Si encuentra el producto
-                if ($producto->getNumero() === $numeroSoporte) {
-                    $productoEncontrado = $producto; //guarda el producto
-                    break;
-                }
-            }
-
-            if ($productoEncontrado  != null) {
-                $socioEncontrado->alquilar($productoEncontrado); // Realiza el alquiler del producto al socio
-                return $this; //Devuelve el objeto con el alquiler ya realizado
-            } else {
-                echo "Producto no encontrado.";
-            }
-        } else {
-            echo "Socio no encontrado.";
+        // Si no se encuentra el socio, lanza una excepción
+        if ($socioEncontrado === null) {
+            throw new ClienteNoEncontradoException("Cliente con número {$numeroCliente} no encontrado.");
         }
+
+        // Busca el producto correspondiente por su número
+        foreach ($this->productos as $producto) {
+            if ($producto->getNumero() === $numeroSoporte) {
+                $productoEncontrado = $producto;
+                break;
+            }
+        }
+
+        // Si no se encuentra el producto, lanza una excepción
+        if ($productoEncontrado === null) {
+            throw new SoporteNoEncontradoException("Producto con número {$numeroSoporte} no encontrado.");
+        }
+
+        // Realiza el alquiler del producto al socio
+        try {
+            $socioEncontrado->alquilar($productoEncontrado); // Lanza excepciones si es necesario
+        } catch (SoporteYaAlquiladoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (CupoSuperadoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (\Exception $e) {
+            echo "Error inesperado: " . $e->getMessage() . "<br>";
+        }
+
+        return $this; // Devuelve el objeto con el alquiler ya realizado
     }
 }

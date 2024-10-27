@@ -2,6 +2,12 @@
 //namespace Dwes\ProyectoVideoClub\Clientes;
 namespace ProyectoVideoClub\app;
 
+use ProyectoVideoClub\util\SoporteYaAlquiladoException;
+use ProyectoVideoClub\util\CupoSuperadoException;
+use ProyectoVideoClub\util\SoporteNoEncontradoException;
+
+
+
 class Cliente
 {
     // Variable estática que lleva el control del número de clientes creados
@@ -97,12 +103,11 @@ class Cliente
 
                 return $this;
             } else {
-                // Mensaje si el cliente ha alcanzado el límite de alquileres
-                echo '<br> Este cliente tiene ' . $this->numSoportesAlquilados . ' elementos alquilados. No puede alquilar más en este videoclub hasta que no devuelva algo<br> ';
+                // Si el socio ha superado su cupo de soportes alquilables se lanza una excepción
+                throw new CupoSuperadoException("El socio ha alcanzado su límite de alquileres.");
             }
         } else {
-            // Mensaje si el cliente ya tiene alquilado el mismo soporte
-            echo "<br> El cliente ya tiene alquilado el soporte $s->titulo <br>";
+            throw new SoporteYaAlquiladoException("El producto ya está alquilado: ". $s->titulo);
         }
 
         return $this;
@@ -111,9 +116,9 @@ class Cliente
     /**
      * Método para devolver un soporte alquilado
      * @param int $numSoporte - El número del soporte que el cliente desea devolver
-     * @return bool - Devuelve true si la devolución fue exitosa, false en caso contrario
+     * @return Object - Devuelve true si la devolución fue exitosa, false en caso contrario
      */
-    public function devolver(int $numSoporte): bool
+    public function devolver(int $numSoporte): Object
     {
         // Verificamos si el cliente tiene soportes alquilados
         if (count($this->soportesAlquilados) != 0) {
@@ -133,18 +138,19 @@ class Cliente
             if ($encontrado) {
                 $this->numSoportesAlquilados--;
                 echo '<br> Se ha completado la devolución<br> ';
-                return true;
+                return $this;
             } else {
-                echo '<br> No se ha podido encontrar el soporte en los alquileres de este cliente<br> ';
+                //si el producto no se ha encontrado se lanza una excepcion
+                throw new SoporteNoEncontradoException("El soporte no estaba alquilado por este cliente.");
             }
         } else {
             // Mensaje si no hay soportes alquilados
             echo "<br>Este cliente no tiene alquilado ningún elemento<br>";
         }
-        return false;
+        return $this;;
     }
 
-    
+
     /**
      * Método que lista todos los alquileres que el cliente tiene actualmente
      * Muestra un resumen de todos los soportes alquilados
