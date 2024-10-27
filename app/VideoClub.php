@@ -173,9 +173,9 @@ class VideoClub
             $socioEncontrado->alquilar($productoEncontrado); // Lanza excepciones si es necesario
             $this->numTotalAlquileres++; // Incrementa el contador total de alquileres
             $productoEncontrado->setEstadoAlquilado(true); // Modifica la propiedad Alquilado del producto
-        
-        
-        } catch (ClienteNoEncontradoException $e ) { 
+
+
+        } catch (ClienteNoEncontradoException $e) {
             echo "Error al alquilar: " . $e->getMessage() . "<br>";
         } catch (SoporteNoEncontradoException $e) {
             echo "Error al alquilar: " . $e->getMessage() . "<br>";
@@ -218,12 +218,14 @@ class VideoClub
                 $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);
                 $productoEncontrado->setEstadoAlquilado(true);
             }
-
+        } catch (ClienteNoEncontradoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (SoporteNoEncontradoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (SoporteYaAlquiladoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
         } catch (CupoSuperadoException $e) {
             echo "Error al alquilar: " . $e->getMessage() . "<br>";
-            // Manejo de errores específicos del cupo superado
-        } catch (ClienteNoEncontradoException $e) {
-            echo "Error clientre no encontrado";
         } catch (\Exception $e) {
             echo "Error inesperado: " . $e->getMessage() . "<br>";
         }
@@ -253,9 +255,15 @@ class VideoClub
             // Mensaje de confirmación
             echo "El producto {$productoEncontrado->getNombre()} ha sido devuelto por el socio {$socioEncontrado->getNumero()}.<br>";
         } catch (ClienteNoEncontradoException $e) {
-            echo "Error clientre no encontrado";
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (SoporteNoEncontradoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (SoporteYaAlquiladoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (CupoSuperadoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
         } catch (\Exception $e) {
-            echo "Error al devolver el producto: " . $e->getMessage() . "<br>";
+            echo "Error inesperado: " . $e->getMessage() . "<br>";
         }
 
         return $this; // Permite encadenamiento
@@ -264,16 +272,17 @@ class VideoClub
     // Método público para devolver múltiples productos alquilados por un socio
     public function devolverSocioProductos(int $numSocio, array $numerosProductos)
     {
-        // Buscar al socio por su número
-        $socioEncontrado = $this->encontrarSocio($numSocio);
+        try {
+            // Buscar al socio por su número
+            $socioEncontrado = $this->encontrarSocio($numSocio);
 
-        // Recorrer los números de productos para devolver
-        foreach ($numerosProductos as $numeroProducto) {
-            // Buscar el producto por su número
-            $productoEncontrado = $this->encontrarSoporte($numeroProducto);
+            // Recorrer los números de productos para devolver
+            foreach ($numerosProductos as $numeroProducto) {
+                // Buscar el producto por su número
+                $productoEncontrado = $this->encontrarSoporte($numeroProducto);
 
-            // Intentar devolver el producto
-            try {
+                // Intentar devolver el producto
+
                 // Llama al método devolver() del socio para devolver el producto
                 $socioEncontrado->devolver($productoEncontrado);
 
@@ -285,11 +294,18 @@ class VideoClub
 
                 // Mensaje de confirmación
                 echo "El producto {$productoEncontrado->getNombre()} ha sido devuelto por el socio {$socioEncontrado->getNumero()}.<br>";
-            } catch (\Exception $e) {
-                echo "Error al devolver el producto: " . $e->getMessage() . "<br>";
             }
+        } catch (ClienteNoEncontradoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (SoporteNoEncontradoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (SoporteYaAlquiladoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (CupoSuperadoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (\Exception $e) {
+            echo "Error inesperado: " . $e->getMessage() . "<br>";
         }
-
         return $this; // Permite encadenamiento
     }
 }
