@@ -25,6 +25,9 @@ class VideoClub
     private $socios = array(); // Array para almacenar socios del videoclub
     private $numSocios; // Contador de socios, calculado en base a los elementos añadidos
 
+    private $numProductosAlquilados;
+    private $numTotalAlquileres;
+
     // Constructor que inicializa el nombre del videoclub y el número de productos
     public function __construct($nombre)
     {
@@ -32,6 +35,26 @@ class VideoClub
         $this->numProductos = 0; // Inicializa el número de productos a cero
     }
 
+    public function getNumProductosAlquilados()
+    {
+        return $this->numProductosAlquilados;
+    }
+
+    public function getNumTotalAlquileres()
+    {
+        return $this->numTotalAlquileres;
+    }
+
+    public function setNumProductosAlquilados($numProductosAlquilados)
+    {
+        $this->numProductosAlquilados = $numProductosAlquilados;
+    }
+
+    public function setNumTotalAlquileres($numTotalAlquileres)
+    {
+        $this->numTotalAlquileres = $numTotalAlquileres;
+    }
+    
     // Método privado para incluir un producto al array de productos
     private function incluirProducto(Soporte $producto)
     {
