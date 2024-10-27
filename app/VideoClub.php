@@ -122,32 +122,24 @@ class VideoClub
             }
         }
 
-        if (!$socioEncontrado) { //si no se ha encontrado socio se lanza excepcion
-            throw new ClienteNoEncontradoException("Socio con número $numeroCliente no encontrado.");
-        }
-
-        $productoEncontrado = null;
-        // Busca el producto correspondiente por su número
-        foreach ($this->productos as $producto) { // Si encuentra el producto
-            if ($producto->getNumero() === $numeroSoporte) {
-                $productoEncontrado = $producto; //guarda el producto
-                break;
+        if ($socioEncontrado != null) {
+            $productoEncontrado = null;
+            // Busca el producto correspondiente por su número
+            foreach ($this->productos as $producto) { // Si encuentra el producto
+                if ($producto->getNumero() === $numeroSoporte) {
+                    $productoEncontrado = $producto; //guarda el producto
+                    break;
+                }
             }
-        }
 
-        if (!$productoEncontrado) { //si el producto no se ha encontrado se lanza una excepcion
-            throw new SoporteNoEncontradoException("Producto con número $numeroSoporte no encontrado.");
+            if ($productoEncontrado  != null) {
+                $socioEncontrado->alquilar($productoEncontrado); // Realiza el alquiler del producto al socio
+                return $this; //Devuelve el objeto con el alquiler ya realizado
+            } else {
+                echo "Producto no encontrado.";
+            }
+        } else {
+            echo "Socio no encontrado.";
         }
-
-        if ($socioEncontrado->tieneAlquilado($productoEncontrado)) { //si el socio ya tenia ese producto alquilado se lanza una excepcion
-            throw new SoporteYaAlquiladoException("El producto ya está alquilado.");
-        }
-
-        if ($socioEncontrado->getNumSoportesAlquilados() >= $socioEncontrado->getMaxAlquilerConcurrente()) { // Si el socio ha superado su cupo de soportes alquilables se lanza una excepción
-            throw new CupoSuperadoException("El socio ha alcanzado su límite de alquileres.");
-        }
-
-        $socioEncontrado->alquilar($productoEncontrado); // Realiza el alquiler del producto al socio
-        return $this; //Devuelve el objeto con el alquiler ya realizado
     }
 }
