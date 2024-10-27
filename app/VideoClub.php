@@ -240,20 +240,14 @@ class VideoClub
             $socioEncontrado = $this->encontrarSocio($numSocio);
             // Buscar el producto por su número
             $productoEncontrado = $this->encontrarSoporte($numeroProducto);
-
-            // Intentar devolver el producto
-
             // Llama al método devolver() del socio para devolver el producto
             $socioEncontrado->devolver($productoEncontrado);
-
             // Marcar el producto como no alquilado
             $productoEncontrado->setEstadoAlquilado(false);
-
             // Decrementar el número total de alquileres
-            $this->numTotalAlquileres--;
-
+            $this->numTotalAlquileres--;    
+            echo "El producto ".$productoEncontrado->getNombre()." ha sido devuelto por el socio ".$socioEncontrado->getNumero()."<br>";
             // Mensaje de confirmación
-            echo "El producto {$productoEncontrado->getNombre()} ha sido devuelto por el socio {$socioEncontrado->getNumero()}.<br>";
         } catch (ClienteNoEncontradoException $e) {
             echo "Error al alquilar: " . $e->getMessage() . "<br>";
         } catch (SoporteNoEncontradoException $e) {
@@ -265,7 +259,6 @@ class VideoClub
         } catch (\Exception $e) {
             echo "Error inesperado: " . $e->getMessage() . "<br>";
         }
-
         return $this; // Permite encadenamiento
     }
 
@@ -275,25 +268,18 @@ class VideoClub
         try {
             // Buscar al socio por su número
             $socioEncontrado = $this->encontrarSocio($numSocio);
-
             // Recorrer los números de productos para devolver
             foreach ($numerosProductos as $numeroProducto) {
                 // Buscar el producto por su número
                 $productoEncontrado = $this->encontrarSoporte($numeroProducto);
-
-                // Intentar devolver el producto
-
                 // Llama al método devolver() del socio para devolver el producto
                 $socioEncontrado->devolver($productoEncontrado);
-
                 // Marcar el producto como no alquilado
                 $productoEncontrado->setEstadoAlquilado(false);
-
                 // Decrementar el número total de alquileres
                 $this->numTotalAlquileres--;
-
                 // Mensaje de confirmación
-                echo "El producto {$productoEncontrado->getNombre()} ha sido devuelto por el socio {$socioEncontrado->getNumero()}.<br>";
+                echo "El producto ".$productoEncontrado->getNombre()." ha sido devuelto por el socio ".$socioEncontrado->getNumero()."<br>";  
             }
         } catch (ClienteNoEncontradoException $e) {
             echo "Error al alquilar: " . $e->getMessage() . "<br>";
