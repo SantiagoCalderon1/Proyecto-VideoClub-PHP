@@ -144,6 +144,7 @@ class Cliente
         return false;
     }
 
+    
     /**
      * Método que lista todos los alquileres que el cliente tiene actualmente
      * Muestra un resumen de todos los soportes alquilados
