@@ -33,6 +33,8 @@ class VideoClub
     {
         $this->nombre = $nombre;
         $this->numProductos = 0; // Inicializa el número de productos a cero
+        $this->numTotalAlquileres = 0;
+        $this->numProductosAlquilados = 0;
     }
 
     public function getNumProductosAlquilados()
@@ -54,7 +56,7 @@ class VideoClub
     {
         $this->numTotalAlquileres = $numTotalAlquileres;
     }
-    
+
     // Método privado para incluir un producto al array de productos
     private function incluirProducto(Soporte $producto)
     {
@@ -92,6 +94,7 @@ class VideoClub
         array_push($this->socios, $socio); // Añade el socio al array de socios
         $this->numSocios++; // Incrementa el contador de socios
         echo "Incluido socio " . $socio->getNumero() . "<br>"; // Imprime un mensaje de confirmación
+        return $socio;
     }
 
     // Método público para listar todos los productos disponibles (no alquilados)
@@ -136,11 +139,9 @@ class VideoClub
         }
     }
 
-    // Método público para alquilar un producto a un socio
-    public function alquilarSocioProducto($numeroCliente, $numeroSoporte)
+    public function encontrarSocio($numeroCliente)
     {
         $socioEncontrado = null;
-        $productoEncontrado = null;
 
         // Busca el socio correspondiente por su número
         foreach ($this->socios as $socio) {
@@ -155,6 +156,13 @@ class VideoClub
             throw new ClienteNoEncontradoException("Cliente con número {$numeroCliente} no encontrado.");
         }
 
+        return $socioEncontrado;
+    }
+
+    public function encontrarSoporte($numeroSoporte)
+    {
+        $productoEncontrado = null;
+
         // Busca el producto correspondiente por su número
         foreach ($this->productos as $producto) {
             if ($producto->getNumero() === $numeroSoporte) {
@@ -168,9 +176,21 @@ class VideoClub
             throw new SoporteNoEncontradoException("Producto con número {$numeroSoporte} no encontrado.");
         }
 
+        return $productoEncontrado;
+    }
+
+    // Método público para alquilar un producto a un socio
+    public function alquilarSocioProducto($numeroCliente, $numeroSoporte)
+    {
+        $socioEncontrado = $this->encontrarSocio($numeroCliente);
+        $productoEncontrado = $this->encontrarSoporte($numeroSoporte);
+
         // Realiza el alquiler del producto al socio
         try {
             $socioEncontrado->alquilar($productoEncontrado); // Lanza excepciones si es necesario
+            $this->numTotalAlquileres++; // Incrementa el contador total de alquileres
+            $this->setNumProductosAlquilados($this->getNumProductosAlquilados() + 1);
+
         } catch (SoporteYaAlquiladoException $e) {
             echo "Error al alquilar: " . $e->getMessage() . "<br>";
         } catch (CupoSuperadoException $e) {
@@ -180,5 +200,42 @@ class VideoClub
         }
 
         return $this; // Devuelve el objeto con el alquiler ya realizado
+    }
+    public function alquilarSocioProductos(int $numSocio, array $numerosProductos)
+    {
+        // Verifica si el socio existe
+        $socioEncontrado = $this->encontrarSocio($numSocio);
+
+        // Array para almacenar productos disponibles
+        $productosDisponibles = [];
+
+        // Verificar la disponibilidad de todos los productos
+        foreach ($numerosProductos as $numeroProducto) {
+            $productoEncontrado = $this->encontrarSoporte($numeroProducto);
+
+            // Comprueba si el producto ya está alquilado
+            if ($productoEncontrado->estaAlquilado()) {
+                throw new SoporteYaAlquiladoException("El producto {$productoEncontrado->getNombre()} ya está alquilado.");
+            }
+
+            // Si todo está bien, agrega el producto a la lista de disponibles
+            $productosDisponibles[] = $productoEncontrado;
+        }
+
+        // Si todos los productos están disponibles, procede a alquilarlos
+        foreach ($productosDisponibles as $producto) {
+            try {
+                $socioEncontrado->alquilar($producto); // Alquila el producto al socio
+                $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);
+            } catch (CupoSuperadoException $e) {
+                echo "Error al alquilar: " . $e->getMessage() . "<br>";
+                // Manejo de errores específicos del cupo superado
+            } catch (\Exception $e) {
+                echo "Error inesperado: " . $e->getMessage() . "<br>";
+                // Manejo de otros errores
+            }
+        }
+
+        return $this; // Devuelve el objeto para permitir encadenamiento
     }
 }

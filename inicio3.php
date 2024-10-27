@@ -26,8 +26,8 @@
 
     echo "<h2>Incluyendo socios</h2>";
     //voy a crear algunos socios 
-    $vc->incluirSocio("Amancio Ortega");
-    $vc->incluirSocio("Pablo Picasso", 2);
+    $socio1 = $vc->incluirSocio("Amancio Ortega");
+    $socio2 = $vc->incluirSocio("Pablo Picasso", 2);
 
     echo "<h2>Alquilando Productos</h2>";
 
@@ -39,6 +39,14 @@
     $vc->alquilarSocioProducto(2, 3)->alquilarSocioProducto(2, 5);
     //alquilo el soporte 3 al socio 2. 
     //no se puede porque el socio 2 tiene 2 alquileres como máximo 
+
+    echo "<h2>Listado de socios del club</h2>";
+    //listo los socios 
+    $vc->listarSocios();
+
+    echo "<h2>Devolviendo Productos</h2>";
+    $socio2->devolver(3);
+    $vc->setNumProductosAlquilados($vc->getNumProductosAlquilados() - 1);
 
     echo "<h2>Listado de socios del club</h2>";
     //listo los socios 
