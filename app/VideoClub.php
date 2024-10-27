@@ -249,13 +249,13 @@ class VideoClub
             echo "El producto ".$productoEncontrado->getNombre()." ha sido devuelto por el socio ".$socioEncontrado->getNumero()."<br>";
             // Mensaje de confirmación
         } catch (ClienteNoEncontradoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+            echo "Error al devolver: " . $e->getMessage() . "<br>";
         } catch (SoporteNoEncontradoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+            echo "Error al devolver: " . $e->getMessage() . "<br>";
         } catch (SoporteYaAlquiladoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+            echo "Error al devolver: " . $e->getMessage() . "<br>";
         } catch (CupoSuperadoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+            echo "Error al devolver: " . $e->getMessage() . "<br>";
         } catch (\Exception $e) {
             echo "Error inesperado: " . $e->getMessage() . "<br>";
         }
@@ -282,13 +282,13 @@ class VideoClub
                 echo "El producto ".$productoEncontrado->getNombre()." ha sido devuelto por el socio ".$socioEncontrado->getNumero()."<br>";  
             }
         } catch (ClienteNoEncontradoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+            echo "Error al devolver: " . $e->getMessage() . "<br>";
         } catch (SoporteNoEncontradoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+            echo "Error al devolver: " . $e->getMessage() . "<br>";
         } catch (SoporteYaAlquiladoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+            echo "Error al devolver: " . $e->getMessage() . "<br>";
         } catch (CupoSuperadoException $e) {
-            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+            echo "Error al devolver: " . $e->getMessage() . "<br>";
         } catch (\Exception $e) {
             echo "Error inesperado: " . $e->getMessage() . "<br>";
         }
