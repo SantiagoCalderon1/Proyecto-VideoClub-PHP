@@ -190,6 +190,7 @@ class VideoClub
             $socioEncontrado->alquilar($productoEncontrado); // Lanza excepciones si es necesario
             $this->numTotalAlquileres++; // Incrementa el contador total de alquileres
             $this->setNumProductosAlquilados($this->getNumProductosAlquilados() + 1);
+            $productoEncontrado->setEstadoAlquilado(true); 
 
         } catch (SoporteYaAlquiladoException $e) {
             echo "Error al alquilar: " . $e->getMessage() . "<br>";
@@ -201,6 +202,7 @@ class VideoClub
 
         return $this; // Devuelve el objeto con el alquiler ya realizado
     }
+
     public function alquilarSocioProductos(int $numSocio, array $numerosProductos)
     {
         // Verifica si el socio existe
@@ -214,7 +216,7 @@ class VideoClub
             $productoEncontrado = $this->encontrarSoporte($numeroProducto);
 
             // Comprueba si el producto ya está alquilado
-            if ($productoEncontrado->estaAlquilado()) {
+            if ($productoEncontrado->alquilado) {
                 throw new SoporteYaAlquiladoException("El producto {$productoEncontrado->getNombre()} ya está alquilado.");
             }
 
@@ -226,7 +228,9 @@ class VideoClub
         foreach ($productosDisponibles as $producto) {
             try {
                 $socioEncontrado->alquilar($producto); // Alquila el producto al socio
-                $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);
+                $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);               
+                $productoEncontrado->setEstadoAlquilado(true); 
+
             } catch (CupoSuperadoException $e) {
                 echo "Error al alquilar: " . $e->getMessage() . "<br>";
                 // Manejo de errores específicos del cupo superado
@@ -237,5 +241,65 @@ class VideoClub
         }
 
         return $this; // Devuelve el objeto para permitir encadenamiento
+    }
+
+    // Método público para devolver un producto alquilado por un socio
+    public function devolverSocioProducto(int $numSocio, int $numeroProducto)
+    {
+        // Buscar al socio por su número
+        $socioEncontrado = $this->encontrarSocio($numSocio);
+        // Buscar el producto por su número
+        $productoEncontrado = $this->encontrarSoporte($numeroProducto);
+
+        // Intentar devolver el producto
+        try {
+            // Llama al método devolver() del socio para devolver el producto
+            $socioEncontrado->devolver($productoEncontrado);
+
+            // Marcar el producto como no alquilado
+            $productoEncontrado->setEstadoAlquilado(false); 
+
+            // Decrementar el número total de alquileres
+            $this->numTotalAlquileres--;
+
+            // Mensaje de confirmación
+            echo "El producto {$productoEncontrado->getNombre()} ha sido devuelto por el socio {$socioEncontrado->getNumero()}.<br>";
+        } catch (\Exception $e) {
+            echo "Error al devolver el producto: " . $e->getMessage() . "<br>";
+        }
+
+        return $this; // Permite encadenamiento
+    }
+
+    // Método público para devolver múltiples productos alquilados por un socio
+    public function devolverSocioProductos(int $numSocio, array $numerosProductos)
+    {
+        // Buscar al socio por su número
+        $socioEncontrado = $this->encontrarSocio($numSocio);
+
+        // Recorrer los números de productos para devolver
+        foreach ($numerosProductos as $numeroProducto) {
+            // Buscar el producto por su número
+            $productoEncontrado = $this->encontrarSoporte($numeroProducto);
+
+            // Intentar devolver el producto
+            try {
+                // Llama al método devolver() del socio para devolver el producto
+                $socioEncontrado->devolver($productoEncontrado);
+
+                // Marcar el producto como no alquilado
+                $productoEncontrado->setEstadoAlquilado(false); 
+
+                // Decrementar el número total de alquileres
+                $this->numTotalAlquileres--;
+
+                // Mensaje de confirmación
+                echo "El producto {$productoEncontrado->getNombre()} ha sido devuelto por el socio {$socioEncontrado->getNumero()}.<br>";
+            } catch (\Exception $e) {
+                echo "Error al devolver el producto: " . $e->getMessage() . "<br>";
+            }
+        }
+
+        return $this; // Permite encadenamiento
     }
 }

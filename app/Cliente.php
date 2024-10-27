@@ -98,7 +98,6 @@ class Cliente
                 // Mensaje de confirmación
                 echo "<br> Alquilado soporte a: $this->nombre <br>";
                 // Mostramos el resumen del soporte alquilado
-                $s->alquilado = true; //Modificamos su condición de alquilado
                 $s->muestraResumen();
 
 
@@ -108,7 +107,7 @@ class Cliente
                 throw new CupoSuperadoException("El socio ha alcanzado su límite de alquileres.");
             }
         } else {
-            throw new SoporteYaAlquiladoException("El producto ya está alquilado: ". $s->titulo);
+            throw new SoporteYaAlquiladoException("El producto ya está alquilado: " . $s->titulo);
         }
 
         return $this;
@@ -132,7 +131,6 @@ class Cliente
                         $encontrado = true;
                         // Lo eliminamos del array de soportes alquilados
                         unset($this->soportesAlquilados[$clave]);
-                        $soporte->alquilado = false; //Modificamos su condición de alquilado
                     }
                 }
             }

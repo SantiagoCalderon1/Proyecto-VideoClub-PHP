@@ -47,7 +47,7 @@ abstract class Soporte implements Resumible
     public $titulo; // Almacena el título del soporte
     protected $numero; // Número de soporte (incremental)
     private $precio; // Precio del soporte sin IVA
-    public $alquilado = false; //Cuando se alquile se pondrá a true, al devolver a false
+    private $alquilado = false; //Cuando se alquile se pondrá a true, al devolver a false
 
     // Constructor que inicializa el título, precio, y asigna un número único al soporte
     public function __construct($titulo, $precio)
@@ -73,6 +73,16 @@ abstract class Soporte implements Resumible
     public function getNumero()
     {
         return $this->numero;
+    }
+
+    public function getEstadoAlquilado()
+    {
+        return $this->alquilado;
+    }
+
+    public function setEstadoAlquilado($estadoAlquilado)
+    {
+        $this->alquilado = $estadoAlquilado;
     }
 
     // Método que muestra un resumen básico del soporte, incluyendo título, número, y precios (con y sin IVA)
