@@ -164,7 +164,6 @@ class VideoClub
     // Método público para alquilar un producto a un socio
     public function alquilarSocioProducto($numeroCliente, $numeroSoporte)
     {
-
         try {
             // Verifica si el socio existe
             $socioEncontrado = $this->encontrarSocio($numeroCliente);
@@ -174,6 +173,12 @@ class VideoClub
             $socioEncontrado->alquilar($productoEncontrado); // Lanza excepciones si es necesario
             $this->numTotalAlquileres++; // Incrementa el contador total de alquileres
             $productoEncontrado->setEstadoAlquilado(true); // Modifica la propiedad Alquilado del producto
+        
+        
+        } catch (ClienteNoEncontradoException $e ) { 
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+        } catch (SoporteNoEncontradoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
         } catch (SoporteYaAlquiladoException $e) {
             echo "Error al alquilar: " . $e->getMessage() . "<br>";
         } catch (CupoSuperadoException $e) {
@@ -186,7 +191,7 @@ class VideoClub
 
     public function alquilarSocioProductos(int $numSocio, array $numerosProductos)
     {
-        try{
+        try {
             // Verifica si el socio existe
             $socioEncontrado = $this->encontrarSocio($numSocio);
 
@@ -209,21 +214,18 @@ class VideoClub
 
             // Si todos los productos están disponibles, procede a alquilarlos
             foreach ($productosDisponibles as $producto) {
-                try {
-                    $socioEncontrado->alquilar($producto); // Alquila el producto al socio
-                    $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);
-                    $productoEncontrado->setEstadoAlquilado(true);
-                } catch (CupoSuperadoException $e) {
-                    echo "Error al alquilar: " . $e->getMessage() . "<br>";
-                    // Manejo de errores específicos del cupo superado
-                } catch (\Exception $e) {
-                    echo "Error inesperado: " . $e->getMessage() . "<br>";
-                    // Manejo de otros errores
-                }
+                $socioEncontrado->alquilar($producto); // Alquila el producto al socio
+                $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);
+                $productoEncontrado->setEstadoAlquilado(true);
             }
 
-        }catch(){
-
+        } catch (CupoSuperadoException $e) {
+            echo "Error al alquilar: " . $e->getMessage() . "<br>";
+            // Manejo de errores específicos del cupo superado
+        } catch (ClienteNoEncontradoException $e) {
+            echo "Error clientre no encontrado";
+        } catch (\Exception $e) {
+            echo "Error inesperado: " . $e->getMessage() . "<br>";
         }
         return $this; // Devuelve el objeto para permitir encadenamiento
     }
@@ -231,13 +233,14 @@ class VideoClub
     // Método público para devolver un producto alquilado por un socio
     public function devolverSocioProducto(int $numSocio, int $numeroProducto)
     {
-        // Buscar al socio por su número
-        $socioEncontrado = $this->encontrarSocio($numSocio);
-        // Buscar el producto por su número
-        $productoEncontrado = $this->encontrarSoporte($numeroProducto);
-
-        // Intentar devolver el producto
         try {
+            // Buscar al socio por su número
+            $socioEncontrado = $this->encontrarSocio($numSocio);
+            // Buscar el producto por su número
+            $productoEncontrado = $this->encontrarSoporte($numeroProducto);
+
+            // Intentar devolver el producto
+
             // Llama al método devolver() del socio para devolver el producto
             $socioEncontrado->devolver($productoEncontrado);
 
@@ -249,6 +252,8 @@ class VideoClub
 
             // Mensaje de confirmación
             echo "El producto {$productoEncontrado->getNombre()} ha sido devuelto por el socio {$socioEncontrado->getNumero()}.<br>";
+        } catch (ClienteNoEncontradoException $e) {
+            echo "Error clientre no encontrado";
         } catch (\Exception $e) {
             echo "Error al devolver el producto: " . $e->getMessage() . "<br>";
         }
