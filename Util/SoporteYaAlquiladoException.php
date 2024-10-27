@@ -1,13 +1,5 @@
 <?php
-namespace Dwes\ProyectoVideoClub\Util;
 
-use \ProyectoVideoClub\Util\VideoclubException;
+namespace ProyectoVideoClub\util;
 
-class SoporteYaAlquiladoException extends VideoclubException {
-    public function __construct($msj = "El producto no está disponible para alquiler", $codigo = 0, Exception $previa = null) {
-        
-        parent::__construct($msj, $codigo, $previa);
-    }
-}
-
-?>
+class SoporteYaAlquiladoException extends VideoclubException {}

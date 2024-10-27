@@ -1,16 +1,17 @@
 <?php
 //namespace Dwes\ProyectoVideoClub\Productos;
 
-namespace Dwes\ProyectoVideoClub\app;
+namespace ProyectoVideoClub\app;
 
-use Dwes\ProyectoVideoClub\app\CintaVideo;
-use Dwes\ProyectoVideoClub\app\Dvd;
-use Dwes\ProyectoVideoClub\app\Juego;
-use Dwes\ProyectoVideoClub\app\Cliente;
-use Dwes\ProyectoVideoClub\Util\SoporteNoEncontradoException;
-use Dwes\ProyectoVideoClub\Util\ClienteNoEncontradoException;
-use Dwes\ProyectoVideoClub\Util\SoporteYaAlquiladoException;
-use Dwes\ProyectoVideoClub\Util\CupoSuperadoException;
+use ProyectoVideoClub\util\ClienteNoEncontradoException;
+use ProyectoVideoClub\util\CupoSuperadoException;
+use ProyectoVideoClub\util\SoporteNoEncontradoException;
+use ProyectoVideoClub\util\SoporteYaAlquiladoException;
+
+use ProyectoVideoClub\app\CintaVideo;
+use ProyectoVideoClub\app\Dvd;
+use ProyectoVideoClub\app\Juego;
+use ProyectoVideoClub\app\Cliente;
 
 class VideoClub
 {
@@ -110,44 +111,43 @@ class VideoClub
     }
 
     // Método público para alquilar un producto a un socio
-    public function alquilaSocioProducto($numeroCliente, $numeroSoporte)
+    public function alquilarSocioProducto($numeroCliente, $numeroSoporte)
     {
-
         $socioEncontrado = null;
         // Busca el socio correspondiente por su número
         foreach ($this->socios as $socio) {
-            if ($socio->getNumero() === $numeroCliente) {// Si encuentra el socio
-                $socioEncontrado = $socio;//guarda el socio
-                break;//deja de recorrer
+            if ($socio->getNumero() === $numeroCliente) { // Si encuentra el socio
+                $socioEncontrado = $socio; //guarda el socio
+                break; //deja de recorrer
             }
         }
 
-        if (!$socioEncontrado) {//si no se ha encontrado socio se lanza excepcion
+        if (!$socioEncontrado) { //si no se ha encontrado socio se lanza excepcion
             throw new ClienteNoEncontradoException("Socio con número $numeroCliente no encontrado.");
         }
 
         $productoEncontrado = null;
         // Busca el producto correspondiente por su número
-        foreach ($this->productos as $producto) {// Si encuentra el producto
+        foreach ($this->productos as $producto) { // Si encuentra el producto
             if ($producto->getNumero() === $numeroSoporte) {
-                $productoEncontrado = $producto;//guarda el producto
+                $productoEncontrado = $producto; //guarda el producto
                 break;
             }
         }
 
-        if (!$productoEncontrado) {//si el producto no se ha encontrado se lanza una excepcion
+        if (!$productoEncontrado) { //si el producto no se ha encontrado se lanza una excepcion
             throw new SoporteNoEncontradoException("Producto con número $numeroSoporte no encontrado.");
         }
 
-        if ($socioEncontrado->tieneAlquilado($productoEncontrado)) {//si el socio ya tenia ese producto alquilado se lanza una excepcion
+        if ($socioEncontrado->tieneAlquilado($productoEncontrado)) { //si el socio ya tenia ese producto alquilado se lanza una excepcion
             throw new SoporteYaAlquiladoException("El producto ya está alquilado.");
         }
 
-        if($socioEncontrado->getNumSoportesAlquilados() < $socioEncontrado->getMaxAlquilerConcurrente()){//si el socio ha superado su cupo de soportes alquilables se lanza una excepcion
-            throw new CupoSuperadoException("El producto ya está alquilado.");
+        if ($socioEncontrado->getNumSoportesAlquilados() >= $socioEncontrado->getMaxAlquilerConcurrente()) { // Si el socio ha superado su cupo de soportes alquilables se lanza una excepción
+            throw new CupoSuperadoException("El socio ha alcanzado su límite de alquileres.");
         }
 
-        $socioEncontrado->alquilar($productoEncontrado);// Realiza el alquiler del producto al socio
-        return $this;//Devuelve el objeto con el alquiler ya realizado
+        $socioEncontrado->alquilar($productoEncontrado); // Realiza el alquiler del producto al socio
+        return $this; //Devuelve el objeto con el alquiler ya realizado
     }
 }

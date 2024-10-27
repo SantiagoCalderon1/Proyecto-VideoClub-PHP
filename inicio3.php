@@ -1,4 +1,5 @@
     <?php
+
     require_once 'autoload.php';
 
     use ProyectoVideoClub\app\VideoClub;
@@ -30,12 +31,12 @@
 
     echo "<h2>Alquilando Productos</h2>";
 
-    $vc->alquilaSocioProducto(2, 3)->alquilaSocioProducto(2, 4);
+    $vc->alquilarSocioProducto(2, 3)->alquilarSocioProducto(2, 4);
     //alquilo otra vez el soporte 2 al socio 1. 
     // no debe dejarme porque ya lo tiene alquilado 
 
     echo "<h2>Alquilando Productos con error</h2>";
-    $vc->alquilaSocioProducto(2, 3)->alquilaSocioProducto(2, 5);
+    $vc->alquilarSocioProducto(2, 3)->alquilarSocioProducto(2, 5);
     //alquilo el soporte 3 al socio 2. 
     //no se puede porque el socio 2 tiene 2 alquileres como máximo 
 
