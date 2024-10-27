@@ -2,7 +2,6 @@
 //namespace Dwes\ProyectoVideoClub\Productos;
 namespace ProyectoVideoClub\app;
 
-
 abstract class Soporte implements Resumible
 {
     /** 
@@ -43,13 +42,13 @@ abstract class Soporte implements Resumible
     // Atributo estático que almacena el valor del IVA (21%)
     private static $IVA =  0.21;
 
-    // Atributos públicos y protegidos que almacenan el título, número y precio del soporte
-    public $titulo; // Almacena el título del soporte
+    // Atributos públicos, protegidos y privados que almacenan el título, número, precio del soporte y el estado de alquiler
+    private $titulo; // Almacena el título del soporte
     protected $numero; // Número de soporte (incremental)
     private $precio; // Precio del soporte sin IVA
-    private $alquilado = false; //Cuando se alquile se pondrá a true, al devolver a false
+    private $alquilado = false; // Estado de alquilado (Booleano)
 
-    // Constructor que inicializa el título, precio, y asigna un número único al soporte
+    // Constructor de clase Soporte, además asigna un número único al soporte
     public function __construct($titulo, $precio)
     {
         $this->titulo = $titulo;
@@ -74,6 +73,10 @@ abstract class Soporte implements Resumible
     {
         return $this->numero;
     }
+    
+    public function getTitulo(){
+        return $this->titulo;
+    }
 
     public function getEstadoAlquilado()
     {
@@ -88,8 +91,8 @@ abstract class Soporte implements Resumible
     // Método que muestra un resumen básico del soporte, incluyendo título, número, y precios (con y sin IVA)
     public function muestraResumen()
     {
-        echo "<br> Titulo: " . $this->titulo .
-            "<br> Numero de soporte: " . $this->numero .
+        echo "<br> Titulo: " . $this->getTitulo() .
+            "<br> Numero de soporte: " . $this->getNumero() .
             "<br> Precio:" . $this->getPrecio() . " € (IVA no incluido)" .
             "<br> Precio: " . $this->getPrecioConIva() . " € (IVA incluido)";
     }

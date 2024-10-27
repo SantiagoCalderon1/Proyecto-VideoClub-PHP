@@ -2,8 +2,6 @@
 //namespace Dwes\ProyectoVideoClub\Productos
 namespace ProyectoVideoClub\app;
 
-//use Dwes\ProyectoVideoClub\Clases\Soporte;
-
 class Juego extends Soporte
 {
     // Atributos públicos y privados que definen las propiedades del juego
@@ -25,7 +23,6 @@ class Juego extends Soporte
     // Método que muestra el número de jugadores posibles
     public function muestraJugadoresPosibles()
     {
-        // Si el mínimo y el máximo de jugadores son iguales
         if ($this->minNumJugadores == $this->maxNumJugadores) {
             // Si el juego es para un jugador, muestra un mensaje apropiado, sino muestra el número de jugadores
             return ($this->minNumJugadores == 1 ? "Para un jugador" : "Para " . $this->maxNumJugadores . " jugadores");
@@ -42,6 +39,6 @@ class Juego extends Soporte
         parent::muestraResumen();
         // Añade detalles específicos del juego: tipo de consola y número de jugadores posibles
         echo "<br> Tipo de consola: " . $this->consola .
-            "<br>" . $this->muestraJugadoresPosibles(); // Muestra el número de jugadores posibles
+            "<br>" . $this->muestraJugadoresPosibles(); 
     }
 }

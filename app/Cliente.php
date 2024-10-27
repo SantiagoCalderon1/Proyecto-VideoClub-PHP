@@ -2,19 +2,18 @@
 //namespace Dwes\ProyectoVideoClub\Clientes;
 namespace ProyectoVideoClub\app;
 
+// Acceso cualificado al namespace
 use ProyectoVideoClub\util\SoporteYaAlquiladoException;
 use ProyectoVideoClub\util\CupoSuperadoException;
 use ProyectoVideoClub\util\SoporteNoEncontradoException;
-
-
 
 class Cliente
 {
     // Variable estática que lleva el control del número de clientes creados
     protected static $numero_cliente = 0;
 
-    // Atributos del cliente
-    public $nombre;  // Nombre del cliente
+    // Atributos privados que definen las propiedades del Cliente
+    private $nombre;  // Nombre del cliente
     private $numero;  // Número único de cliente
     private $soportesAlquilados = [];  // Array que almacena los soportes alquilados por el cliente
     private $numSoportesAlquilados;  // Contador de los soportes alquilados actualmente
@@ -35,6 +34,11 @@ class Cliente
         // Asigna un número único al cliente de forma incremental
         $this->numero = ++self::$numero_cliente;
     }
+    // Método para obtener el nombre del cliente
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
 
     // Método para obtener el número del cliente
     public function getNumero()
@@ -42,13 +46,13 @@ class Cliente
         return $this->numero;
     }
 
-    // Método que devuelve la cantidad de soportes que el cliente tiene alquilados
+    // Método para obtener la cantidad de soportes que el cliente tiene alquilados
     public function getNumSoportesAlquilados()
     {
         return $this->numSoportesAlquilados;
     }
 
-    // Método que devuelve la cantidad maxima de soportes que el cliente puede tener
+    // Método para obtener la cantidad maxima de soportes que el cliente puede tener
     public function getMaxAlquilerConcurrente()
     {
         return $this->maxAlquilerConcurrente;
@@ -58,7 +62,7 @@ class Cliente
     public function muestraResumen()
     {
         // Muestra el nombre del cliente y la cantidad de alquileres actuales
-        echo '<br>El cliente de nombre ' . $this->nombre . ' tiene un total de ' . count($this->soportesAlquilados) . ' alquileres.<br>';
+        echo "<br>El cliente de nombre " . $this->getNombre() . " tiene un total de " . count($this->soportesAlquilados) . " alquileres.<br>";
     }
 
     /** 
@@ -70,7 +74,7 @@ class Cliente
     {
         // Iteramos por el array de soportes alquilados para ver si el cliente tiene el soporte
         foreach ($this->soportesAlquilados as $soporte) {
-            if ($soporte == $s) {
+            if ($soporte === $s) {
                 // Si el soporte coincide con el proporcionado, retornamos true
                 return true;
             }
@@ -91,25 +95,22 @@ class Cliente
         if (!$this->tieneAlquilado($s)) {
             // Comprobamos si el cliente no ha excedido su límite de alquileres
             if ($this->numSoportesAlquilados < $this->maxAlquilerConcurrente) {
-                // Incrementamos el contador de soportes alquilados
-                $this->numSoportesAlquilados++;
                 // Añadimos el soporte al array de soportes alquilados
                 array_push($this->soportesAlquilados, $s);
+                // Incrementamos el contador de soportes alquilados
+                $this->numSoportesAlquilados++;
                 // Mensaje de confirmación
-                echo "<br> Alquilado soporte a: $this->nombre <br>";
+                echo "<br> Alquilado soporte a:". $this->getNombre() ."<br>";
                 // Mostramos el resumen del soporte alquilado
                 $s->muestraResumen();
-
-
                 return $this;
             } else {
                 // Si el socio ha superado su cupo de soportes alquilables se lanza una excepción
                 throw new CupoSuperadoException("El socio ha alcanzado su límite de alquileres.");
             }
         } else {
-            throw new SoporteYaAlquiladoException("El producto ya está alquilado: " . $s->titulo);
+            throw new SoporteYaAlquiladoException("El producto ya está alquilado: " . $s->getTitulo());
         }
-
         return $this;
     }
 
@@ -127,7 +128,7 @@ class Cliente
             foreach ($this->soportesAlquilados as $clave => $soporte) {
                 if ($soporte instanceof Soporte) {
                     // Si encontramos el soporte que coincide con el número proporcionado
-                    if ($soporte->getNumero() == $numSoporte) {
+                    if ($soporte->getNumero() === $numSoporte) {
                         $encontrado = true;
                         // Lo eliminamos del array de soportes alquilados
                         unset($this->soportesAlquilados[$clave]);
@@ -147,9 +148,8 @@ class Cliente
             // Mensaje si no hay soportes alquilados
             echo "<br>Este cliente no tiene alquilado ningún elemento<br>";
         }
-        return $this;;
+        return $this;
     }
-
 
     /**
      * Método que lista todos los alquileres que el cliente tiene actualmente
@@ -158,7 +158,7 @@ class Cliente
     public function listarAlquileres()
     {
         // Imprime la cantidad de soportes alquilados
-        echo "<br><strong>El cliente tiene $this->numSoportesAlquilados alquileres</strong><br>";
+        echo "<br><strong>El cliente tiene ".$this->numSoportesAlquilados." alquileres</strong><br>";
 
         // Recorre y muestra el resumen de cada soporte alquilado
         foreach ($this->soportesAlquilados as $soporte) {

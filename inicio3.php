@@ -46,7 +46,6 @@
 
     echo "<h2>Devolviendo Productos</h2>";
     $socio2->devolver(3);
-    $vc->setNumProductosAlquilados($vc->getNumProductosAlquilados() - 1);
 
     echo "<h2>Listado de socios del club</h2>";
     //listo los socios 

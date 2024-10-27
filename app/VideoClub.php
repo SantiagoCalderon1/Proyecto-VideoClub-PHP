@@ -3,14 +3,13 @@
 
 namespace ProyectoVideoClub\app;
 
+// Acceso cualificado al namespace de las excepciones
 use ProyectoVideoClub\util\ClienteNoEncontradoException;
 use ProyectoVideoClub\util\SoporteNoEncontradoException;
 use ProyectoVideoClub\util\SoporteYaAlquiladoException;
 use ProyectoVideoClub\util\CupoSuperadoException;
 
-
-
-
+// Acceso cualificado al namespace de las clases
 use ProyectoVideoClub\app\CintaVideo;
 use ProyectoVideoClub\app\Dvd;
 use ProyectoVideoClub\app\Juego;
@@ -18,15 +17,15 @@ use ProyectoVideoClub\app\Cliente;
 
 class VideoClub
 {
-    // Atributos privados
+    // Atributos privados que definen las propiedades del VideoClub
     private $nombre; // Nombre del videoclub
     private $productos = array(); // Array para almacenar productos (soportes) disponibles en el videoclub
     private $numProductos; // Contador de productos, calculado en base a los elementos añadidos
     private $socios = array(); // Array para almacenar socios del videoclub
     private $numSocios; // Contador de socios, calculado en base a los elementos añadidos
 
-    private $numProductosAlquilados;
-    private $numTotalAlquileres;
+    private $numProductosAlquilados; // Numeros de productos alquilados en el momento
+    private $numTotalAlquileres; //  Número total de todos los alquilados
 
     // Constructor que inicializa el nombre del videoclub y el número de productos
     public function __construct($nombre)
@@ -45,16 +44,6 @@ class VideoClub
     public function getNumTotalAlquileres()
     {
         return $this->numTotalAlquileres;
-    }
-
-    public function setNumProductosAlquilados($numProductosAlquilados)
-    {
-        $this->numProductosAlquilados = $numProductosAlquilados;
-    }
-
-    public function setNumTotalAlquileres($numTotalAlquileres)
-    {
-        $this->numTotalAlquileres = $numTotalAlquileres;
     }
 
     // Método privado para incluir un producto al array de productos
@@ -131,10 +120,9 @@ class VideoClub
     {
         $contador = 0; // Contador para enumerar los socios
         echo "<br>Listado de " . count($this->socios) . " socios del videoclub:<br>"; // Cabecera de la lista
-
         // Recorre el array de socios y los va mostrando
         foreach ($this->socios as $socio) {
-            echo ++$contador . ".- Cliente " . $socio->getNumero() . ": " . $socio->nombre . "<br>"; // Imprime el número de socio y su nombre
+            echo ++$contador . ".- Cliente " . $socio->getNumero() . ": " . $socio->getNombre() . "<br>"; // Imprime el número de socio y su nombre
             echo "Alquileres actuales: " . $socio->getNumSoportesAlquilados() . "<br>"; // Muestra cuántos alquileres tiene el socio
         }
     }
@@ -142,46 +130,41 @@ class VideoClub
     public function encontrarSocio($numeroCliente)
     {
         $socioEncontrado = null;
-
         // Busca el socio correspondiente por su número
         foreach ($this->socios as $socio) {
             if ($socio->getNumero() === $numeroCliente) {
-                $socioEncontrado = $socio;
-                break;
+                $socioEncontrado === $socio;
+                break; // Sale del bucle si se encuentra al socio
             }
         }
-
         // Si no se encuentra el socio, lanza una excepción
         if ($socioEncontrado === null) {
-            throw new ClienteNoEncontradoException("Cliente con número {$numeroCliente} no encontrado.");
+            throw new ClienteNoEncontradoException("Cliente con número " . $numeroCliente . " no encontrado.");
         }
-
-        return $socioEncontrado;
+        return $socioEncontrado; // Devuelve el socio encontrado
     }
 
     public function encontrarSoporte($numeroSoporte)
     {
         $productoEncontrado = null;
-
         // Busca el producto correspondiente por su número
         foreach ($this->productos as $producto) {
             if ($producto->getNumero() === $numeroSoporte) {
                 $productoEncontrado = $producto;
-                break;
+                break; // Sale del bucle si se encuentra el producto
             }
         }
-
         // Si no se encuentra el producto, lanza una excepción
         if ($productoEncontrado === null) {
-            throw new SoporteNoEncontradoException("Producto con número {$numeroSoporte} no encontrado.");
+            throw new SoporteNoEncontradoException("Producto con número " . $numeroSoporte . "no encontrado.");
         }
-
-        return $productoEncontrado;
+        return $productoEncontrado; // Devuelve el producto encontrado
     }
 
     // Método público para alquilar un producto a un socio
     public function alquilarSocioProducto($numeroCliente, $numeroSoporte)
     {
+        // Verifica si el socio existe
         $socioEncontrado = $this->encontrarSocio($numeroCliente);
         $productoEncontrado = $this->encontrarSoporte($numeroSoporte);
 
@@ -189,9 +172,7 @@ class VideoClub
         try {
             $socioEncontrado->alquilar($productoEncontrado); // Lanza excepciones si es necesario
             $this->numTotalAlquileres++; // Incrementa el contador total de alquileres
-            $this->setNumProductosAlquilados($this->getNumProductosAlquilados() + 1);
-            $productoEncontrado->setEstadoAlquilado(true); 
-
+            $productoEncontrado->setEstadoAlquilado(true); // Modifica la propiedad Alquilado del producto
         } catch (SoporteYaAlquiladoException $e) {
             echo "Error al alquilar: " . $e->getMessage() . "<br>";
         } catch (CupoSuperadoException $e) {
@@ -199,7 +180,6 @@ class VideoClub
         } catch (\Exception $e) {
             echo "Error inesperado: " . $e->getMessage() . "<br>";
         }
-
         return $this; // Devuelve el objeto con el alquiler ya realizado
     }
 
@@ -213,6 +193,7 @@ class VideoClub
 
         // Verificar la disponibilidad de todos los productos
         foreach ($numerosProductos as $numeroProducto) {
+            // Verifica si el producto existe
             $productoEncontrado = $this->encontrarSoporte($numeroProducto);
 
             // Comprueba si el producto ya está alquilado
@@ -228,9 +209,8 @@ class VideoClub
         foreach ($productosDisponibles as $producto) {
             try {
                 $socioEncontrado->alquilar($producto); // Alquila el producto al socio
-                $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);               
-                $productoEncontrado->setEstadoAlquilado(true); 
-
+                $this->alquilarSocioProducto($socioEncontrado->getNumero(), $producto);
+                $productoEncontrado->setEstadoAlquilado(true);
             } catch (CupoSuperadoException $e) {
                 echo "Error al alquilar: " . $e->getMessage() . "<br>";
                 // Manejo de errores específicos del cupo superado
@@ -257,7 +237,7 @@ class VideoClub
             $socioEncontrado->devolver($productoEncontrado);
 
             // Marcar el producto como no alquilado
-            $productoEncontrado->setEstadoAlquilado(false); 
+            $productoEncontrado->setEstadoAlquilado(false);
 
             // Decrementar el número total de alquileres
             $this->numTotalAlquileres--;
@@ -288,7 +268,7 @@ class VideoClub
                 $socioEncontrado->devolver($productoEncontrado);
 
                 // Marcar el producto como no alquilado
-                $productoEncontrado->setEstadoAlquilado(false); 
+                $productoEncontrado->setEstadoAlquilado(false);
 
                 // Decrementar el número total de alquileres
                 $this->numTotalAlquileres--;

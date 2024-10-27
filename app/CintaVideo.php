@@ -12,16 +12,16 @@ class CintaVideo extends Soporte
     {
         // Llamada al constructor de la clase padre (Soporte)
         parent::__construct($titulo, $precio);
-        // Inicializa el atributo duración con el valor proporcionado
+        // Inicializa el atributo específico de CintaVideo: duración
         $this->duracion = $duracion;
     }
 
     // Método que muestra un resumen del contenido de la cinta de video
     public function muestraResumen()
     {
-        // Imprime el tipo de soporte (Pelicula en VHS)
+        // Imprime el tipo de soporte
         echo "<br>Pelicula en VHS: ";
-        // Llama al método `muestraResumen()` de la clase padre (Soporte) para mostrar el resumen general
+        // Llama al método muestraResumen() de la clase padre para mostrar la información básica
         parent::muestraResumen();
         // Imprime la duración específica de la cinta en minutos
         echo "<br>Duración: " . $this->duracion . " minutos";
