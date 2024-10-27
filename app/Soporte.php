@@ -47,6 +47,7 @@ abstract class Soporte implements Resumible
     public $titulo; // Almacena el título del soporte
     protected $numero; // Número de soporte (incremental)
     private $precio; // Precio del soporte sin IVA
+    public $alquilado = false; //Cuando se alquile se pondrá a true, al devolver a false
 
     // Constructor que inicializa el título, precio, y asigna un número único al soporte
     public function __construct($titulo, $precio)
