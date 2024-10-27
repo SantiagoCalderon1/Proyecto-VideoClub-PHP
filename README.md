@@ -20,11 +20,11 @@ Responsabilidades VideoClub 1.0:
 Responsabilidades VideoClub 2.0:
 - Anthony:
     + 331 --> Terminado
-    + 333
+    + 333 --> Terminado
     + 335
     + 337
 - Santiago:
     + 330 --> Terminado
     + 332 --> Terminado
-    + 334
+    + 334 --> Terminado
     + 336 --> Terminado
