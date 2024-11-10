@@ -28,3 +28,14 @@ Responsabilidades VideoClub 2.0:
     + 332 --> Terminado
     + 334 --> Terminado
     + 336 --> Terminado
+
+Responsabilidades VideoClub 3.0:
+- Anthony:
+    + 424 --> 
+    + 425 --> 
+    + 426 --> 
+- Santiago:
+    + 420 --> Terminado
+    + 421 --> 
+    + 422 --> 
+    + 423 --> 
