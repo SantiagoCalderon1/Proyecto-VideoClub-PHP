@@ -46,6 +46,15 @@ class VideoClub
         return $this->numTotalAlquileres;
     }
 
+    public function getProductos()
+    {
+        return $this->productos;
+    }
+    public function getSocios()
+    {
+        return $this->socios;
+    }
+
     // Método privado para incluir un producto al array de productos
     private function incluirProducto(Soporte $producto)
     {
@@ -245,8 +254,8 @@ class VideoClub
             // Marcar el producto como no alquilado
             $productoEncontrado->setEstadoAlquilado(false);
             // Decrementar el número total de alquileres
-            $this->numTotalAlquileres--;    
-            echo "El producto ".$productoEncontrado->getNombre()." ha sido devuelto por el socio ".$socioEncontrado->getNumero()."<br>";
+            $this->numTotalAlquileres--;
+            echo "El producto " . $productoEncontrado->getNombre() . " ha sido devuelto por el socio " . $socioEncontrado->getNumero() . "<br>";
             // Mensaje de confirmación
         } catch (ClienteNoEncontradoException $e) {
             echo "Error al devolver: " . $e->getMessage() . "<br>";
@@ -279,7 +288,7 @@ class VideoClub
                 // Decrementar el número total de alquileres
                 $this->numTotalAlquileres--;
                 // Mensaje de confirmación
-                echo "El producto ".$productoEncontrado->getNombre()." ha sido devuelto por el socio ".$socioEncontrado->getNumero()."<br>";  
+                echo "El producto " . $productoEncontrado->getNombre() . " ha sido devuelto por el socio " . $socioEncontrado->getNumero() . "<br>";
             }
         } catch (ClienteNoEncontradoException $e) {
             echo "Error al devolver: " . $e->getMessage() . "<br>";

@@ -1,5 +1,8 @@
     <?php
 
+    // Iniciar sesión
+    session_start();
+
     require_once 'autoload.php';
 
     use ProyectoVideoClub\app\VideoClub;
@@ -31,7 +34,7 @@
 
     echo "<h2>Alquilando Productos</h2>";
 
-    $vc->alquilarSocioProducto(2, 3)->alquilarSocioProducto(2, 4);
+    $vc->alquilarSocioProducto(1, 3)->alquilarSocioProducto(1, 4);
     //alquilo otra vez el soporte 2 al socio 1. 
     // no debe dejarme porque ya lo tiene alquilado 
 
@@ -47,7 +50,30 @@
     echo "<h2>Devolviendo Productos</h2>";
     $socio2->devolver(3);
 
+
     echo "<h2>Listado de socios del club</h2>";
     //listo los socios 
     $vc->listarSocios();
-    ?>
+
+    // Se captura la salida del método listarProductos() (que realiza echo)
+    ob_start(); // Inicia el buffer de salida
+    $vc->listarProductos(); // Llama al método para mostrar el resumen del producto
+    $listaProductos = ob_get_clean(); // Captura el contenido del buffer y lo almacena en $resumen
+    
+    ob_start();
+    $vc->listarSocios();
+    $listaSocios = ob_get_clean();
+    
+    
+    $_SESSION['listaProductos'] = $listaProductos;
+    $_SESSION['listaSocios'] = $listaSocios;
+
+    //Aqui iría codigo extra 1
+
+
+    // Redirige de vuelta a la página de administrador si el parámetro 'redirect' está presente
+    if (isset($_GET['redirect']) && $_GET['redirect'] == 'admin') {
+        header("Location: mainAdmin.php");
+        exit();
+    }
+    ?>  

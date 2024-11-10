@@ -1,0 +1,77 @@
+codigo extra 1 inicio3{
+
+    // Obtenemos el array de objetos Cliente
+    $clientes = $vc->getSocios();
+
+    // Convertimos cada objeto Cliente a un array y lo guardamos en la sesión
+    $_SESSION['socios'] = array_map(function ($cliente) {
+        return [
+            'nombre' => $cliente->getNombre(),
+            'numero' => $cliente->getNumero(),
+            //'soportesAlquilados' => $cliente->getSoportesAlquilados(),
+            'numSoportesAlquilados' => $cliente->getNumSoportesAlquilados(),
+            'maxAlquilerConcurrente' => $cliente->getMaxAlquilerConcurrente()
+        ];
+    }, $clientes);
+
+    //Obtenemos el array de objetos Soporte
+    $soportes = $vc->getProductos();
+
+    // Convertimos cada objeto Soporte a un array y lo guardamos en la sesión
+    $_SESSION['productos'] = array_map(function ($soporte) {
+        return [
+            'titulo' => $soporte->getTitulo(),
+            'numero' => $soporte->getNumero(),
+            'precio' => $soporte->getPrecio(),
+            'precioIva' => $soporte->getPrecioConIva(),
+            'alquilado' => ($soporte->getEstadoAlquilado() ? 'Si' : 'No')
+        ];
+    }, $soportes);
+
+}
+
+codigo extra 2  mainAdmin{
+
+if (isset($_SESSION['socios']) && isset($_SESSION['productos'])) {
+    $socios = $_SESSION['socios'];
+        $productos = $_SESSION['productos'];
+}
+
+}
+
+codigo extra 3 mainAdmin {
+
+
+    if (!empty($socios)) {
+        echo '<h2>Listado de Clientes</h2>';
+        $listaClientes = '<ol>';
+        foreach ($socios as $socio) {
+            $listaClientes .= '<li>Nombre: ' . htmlspecialchars($socio['nombre']) . '<br>';
+            $listaClientes .= 'Número único: ' . htmlspecialchars($socio['numero']) . '<br>';
+            //$listaClientes .= 'Soportes Alquilados: ' . htmlspecialchars(json_encode($socio['soportesAlquilados'])) . '<br>';
+            $listaClientes .= 'Número de Soportes Alquilados: ' . htmlspecialchars($socio['numSoportesAlquilados']) . '<br>';
+            $listaClientes .= 'Máximo Alquiler Concurrente: ' . htmlspecialchars($socio['maxAlquilerConcurrente']) . '</li>';
+        }
+        $listaClientes .= '</ol>';
+        echo $listaClientes;
+    } else {
+        echo "<p>No hay socios registrados.</p>";
+    }
+
+    if (!empty($productos)) {
+        echo '<h2>Listado de Productos</h2>';
+        $listarProductos = '<ol>';
+        foreach ($productos as $producto) {
+            $listarProductos .= '<li>Titulo: ' . htmlspecialchars($producto['titulo']) . '<br>';
+            $listarProductos .= 'Número de soporte: ' . htmlspecialchars($producto['numero']) . '<br>';
+            $listarProductos .= 'Precio: ' . htmlspecialchars($producto['precio']) . '<br>';
+            $listarProductos .= 'Precio con IVA: ' . htmlspecialchars($producto['precioIva']) . '<br>';
+            $listarProductos .= 'Alquilado: ' . htmlspecialchars($producto['alquilado']) . '</li>';
+        }
+        $listarProductos .= '</ol>';
+        echo $listarProductos;
+    } else {
+        echo "<p>No hay productos registrados.</p>";
+    }
+
+}
