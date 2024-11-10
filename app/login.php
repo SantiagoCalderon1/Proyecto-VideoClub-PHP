@@ -1,13 +1,26 @@
 <?php
-if (isset($_POST['user'])  && isset($_POST['pass'])) {
+session_start(); //Inicia la sesión
+
+// Comprueba si se enviaron las credenciales
+if (isset($_POST['user'])  && isset($_POST['password'])) {
     $user = $_POST['user'];
-    $pass  = $_POST['pass'];
+    $pass  = $_POST['password'];
 
     if ($user  == 'admin' && $pass == 'admin') {
-        header('Location: http://localhost:8080/mainAdmin.php');
-    }
+        // header('Location: http://localhost:8080/ProyectoVideoClub/app/mainAdmin.php');
+        $_SESSION['user'] = $user;
+        header('Location: mainAdmin.php');
 
-    if ($user  == 'usuario' && $pass == 'usuario') {
-        header('Location: http://localhost:8080/maincliente.php');
+        exit();
+    } elseif ($user  == 'usuario' && $pass == 'usuario') {
+        // header('Location: http://localhost:8080/ProyectoVideoClub/app/maincliente.php');
+        $_SESSION['user'] = $user;
+        header('Location: maincliente.php');
+
+        exit();
+    } else {
+        header('Location: ../index.php?error=1');
+        exit();
     }
 }
+?>
