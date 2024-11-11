@@ -75,3 +75,39 @@ codigo extra 3 mainAdmin {
     }
 
 }
+
+
+//Esto no hay que ponerle antención, era lo que había en inicio3.php
+
+    // Se captura la salida del método listarProductos() (que realiza echo)
+    ob_start(); // Inicia el buffer de salida
+    $vc->listarProductos(); // Llama al método para mostrar el resumen del producto
+    $listaProductos = ob_get_clean(); // Captura el contenido del buffer y lo almacena en $resumen
+    
+    ob_start();
+    $vc->listarSocios();
+    $listaSocios = ob_get_clean();
+    
+    
+    $_SESSION['listaProductos'] = $listaProductos;
+    $_SESSION['listaSocios'] = $listaSocios;
+
+    //Aqui iría codigo extra 1
+
+
+    // Redirige de vuelta a la página de administrador si el parámetro 'redirect' está presente
+    if (isset($_GET['redirect']) && $_GET['redirect'] == 'admin') {
+        header("Location: mainAdmin.php");
+        exit();
+    }
+
+
+
+//Redireccionar a una pagina 
+
+// Verifica si los datos de 'listaProductos' ya están cargados
+if (!isset($_SESSION['listaProductos']) || !isset($_SESSION['listaSocios'])) {
+    // Redirige a inicio3.php para cargar los datos en la sesión y luego vuelve aquí
+    header("Location: ../inicio3.php?redirect=admin");
+    exit();
+}

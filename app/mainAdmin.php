@@ -6,16 +6,12 @@ if (isset($_SESSION['user'])) {
     $user = $_SESSION['user']; // Recupera el usuario desde la sesión
 }
 
-// Verifica si los datos de 'listaProductos' ya están cargados
-if (!isset($_SESSION['listaProductos']) || !isset($_SESSION['listaSocios'])) {
-    // Redirige a inicio3.php para cargar los datos en la sesión y luego vuelve aquí
-    header("Location: ../inicio3.php?redirect=admin");
+if (isset($_SESSION['productos']) && isset($_SESSION['socios'])) {
+    $productos = $_SESSION['productos'];
+    $socios = $_SESSION['socios'];
+}else{
+    header('Location: ../index.php?error=2');
     exit();
-}
-
-if (isset($_SESSION['listaProductos']) && isset($_SESSION['listaSocios'])) {
-    $listaProductos = $_SESSION['listaProductos'];
-    $listaSocios = $_SESSION['listaSocios'];
 }
 
 // Aquí iría codigo2
@@ -42,7 +38,7 @@ if (isset($_SESSION['listaProductos']) && isset($_SESSION['listaSocios'])) {
     echo $listaProductos;
     ?>
 
-    <!-- Fomrulario para cerrar la sesión -->
+    <!-- Formulario para cerrar la sesión -->
     <form action="logOut.php" method="post">
         <input type="submit" name="logout" value="Cerrar sesión">
     </form>
