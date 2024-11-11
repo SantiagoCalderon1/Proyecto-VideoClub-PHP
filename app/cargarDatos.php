@@ -2,7 +2,7 @@
 // Iniciar sesión
 session_start();
 
-require_once 'autoload.php';
+require_once '../autoload.php';
 
 use ProyectoVideoClub\app\VideoClub;
 
@@ -27,11 +27,13 @@ $productos = [];
 $socios = [];
 
 // Iterando los arrays para almacenarnos en el array asociativo
-foreach ($vc->getProductos() as $producto) {
+$productosAUX = $vc->getProductos();
+foreach ($productosAUX as $producto) {
     $productos[$producto->getNumero()] = $producto;
 }
 
-foreach ($vc->getSocios() as $socio) {
+$clientesAUX = $vc->getSocios();
+foreach ($clientesAUX as $socio) {
     $socios[$socio->getNumero()] = $socio;
 }
 

@@ -10,6 +10,7 @@ if (isset($_POST['user'])  && isset($_POST['password'])) {
         // header('Location: http://localhost:8080/ProyectoVideoClub/app/mainAdmin.php');
         $_SESSION['user'] = $user;
         header('Location: cargarDatos.php');
+        //header('Location: mainAdmin.php');
 
         exit();
     } elseif ($user  == 'usuario' && $pass == 'usuario') {
