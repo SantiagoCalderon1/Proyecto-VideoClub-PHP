@@ -36,6 +36,6 @@ Responsabilidades VideoClub 3.0:
     + 426 --> 
 - Santiago:
     + 420 --> Terminado
-    + 421 --> 
+    + 421 --> Terminado
     + 422 --> 
     + 423 --> 
