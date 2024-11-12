@@ -111,3 +111,22 @@ if (!isset($_SESSION['listaProductos']) || !isset($_SESSION['listaSocios'])) {
     header("Location: ../inicio3.php?redirect=admin");
     exit();
 }
+
+
+
+// Obtener los productos y socios del VideoClub
+    $productosAUX = $vc->getProductos();
+    foreach ($productosAUX as $producto) {
+        // Verificar que getNumero exista antes de accederlo
+        if (method_exists($producto, 'getNumero')) {
+            $productos[$producto->getNumero()] = $producto;
+        }
+    }
+
+    $clientesAUX = $vc->getSocios();
+    foreach ($clientesAUX as $socio) {
+        // Verificar que getNumero exista antes de accederlo
+        if (method_exists($socio, 'getNumero')) {
+            $socios[$socio->getNumero()] = $socio;
+        }
+    }
