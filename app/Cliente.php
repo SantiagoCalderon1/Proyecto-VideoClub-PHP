@@ -18,22 +18,29 @@ class Cliente
     private $soportesAlquilados = [];  // Array que almacena los soportes alquilados por el cliente
     private $numSoportesAlquilados;  // Contador de los soportes alquilados actualmente
     private $maxAlquilerConcurrente;  // Límite de alquileres que un cliente puede tener al mismo tiempo
+    private $user;
+    private $password;
 
     // Constructor de la clase Cliente
-    public function __construct($nombre, $mAlquilerConcurrente = 3)
+    public function __construct($nombre, $user, $password, $mAlquilerConcurrente = 3)
     {
         // Inicializa el nombre del cliente
         $this->nombre = $nombre;
+        //Inicializa el user
+        $this->user = $user;
+        //Inicializa el password
+        /** Un hash es una versión codificada de la contraseña original, pero irreversible, 
+         * lo que significa que no puedes obtener la contraseña original a partir del hash. */
+        $this->password = $password;
 
         // Inicializa el número de alquileres actuales a 0
         $this->numSoportesAlquilados = 0;
-
         // Define el número máximo de alquileres concurrentes, por defecto es 3
         $this->maxAlquilerConcurrente = $mAlquilerConcurrente;
-
         // Asigna un número único al cliente de forma incremental
         $this->numero = ++self::$numero_cliente;
     }
+
     // Método para obtener el nombre del cliente
     public function getNombre()
     {
@@ -58,6 +65,33 @@ class Cliente
         return $this->maxAlquilerConcurrente;
     }
 
+    // Método para obtener el usuario del cliente
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    // Método para modificar el usuario del cliente
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function getAlquileres(){
+        return $this->soportesAlquilados;
+    }
+    // Método para obtener la contraseña del cliente
+    public function setUser($newUser)
+    {
+        $this->user = $newUser;
+    }
+
+    // Método para modificar la contraseña del cliente
+    public function setPassword($newPassword)
+    {
+        $this->password =$newPassword;
+    }
+
     // Método que muestra un resumen de los alquileres del cliente
     public function muestraResumen()
     {
@@ -74,7 +108,7 @@ class Cliente
     {
         // Iteramos por el array de soportes alquilados para ver si el cliente tiene el soporte
         foreach ($this->soportesAlquilados as $soporte) {
-            if ($soporte === $s) {
+            if ($soporte->getNumero() === $s->getNumero()) {
                 // Si el soporte coincide con el proporcionado, retornamos true
                 return true;
             }
@@ -100,7 +134,7 @@ class Cliente
                 // Incrementamos el contador de soportes alquilados
                 $this->numSoportesAlquilados++;
                 // Mensaje de confirmación
-                echo "<br> Alquilado soporte a:". $this->getNombre() ."<br>";
+                echo "<br> Alquilado soporte a:" . $this->getNombre() . "<br>";
                 // Mostramos el resumen del soporte alquilado
                 $s->muestraResumen();
                 return $this;
@@ -158,7 +192,7 @@ class Cliente
     public function listarAlquileres()
     {
         // Imprime la cantidad de soportes alquilados
-        echo "<br><strong>El cliente tiene ".$this->numSoportesAlquilados." alquileres</strong><br>";
+        echo "<br><strong>El cliente tiene " . $this->numSoportesAlquilados . " alquileres</strong><br>";
 
         // Recorre y muestra el resumen de cada soporte alquilado
         foreach ($this->soportesAlquilados as $soporte) {

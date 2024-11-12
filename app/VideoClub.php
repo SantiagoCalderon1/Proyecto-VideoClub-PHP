@@ -85,10 +85,10 @@ class VideoClub
     }
 
     // Método público para incluir un socio en el videoclub
-    public function incluirSocio($nombre, $maxAlquileresConcurrentes = 3)
+    public function incluirSocio($nombre, $user, $password, $maxAlquileresConcurrentes = 3)
     {
         // Crea una nueva instancia de Cliente (socio) y la añade al array de socios
-        $socio = new Cliente($nombre, $maxAlquileresConcurrentes);
+        $socio = new Cliente($nombre, $user, $password, $maxAlquileresConcurrentes);
         array_push($this->socios, $socio); // Añade el socio al array de socios
         $this->numSocios++; // Incrementa el contador de socios
         echo "Incluido socio " . $socio->getNumero() . "<br>"; // Imprime un mensaje de confirmación
@@ -142,7 +142,7 @@ class VideoClub
         // Busca el socio correspondiente por su número
         foreach ($this->socios as $socio) {
             if ($socio->getNumero() === $numeroCliente) {
-                $socioEncontrado === $socio;
+                $socioEncontrado = $socio;
                 break; // Sale del bucle si se encuentra al socio
             }
         }

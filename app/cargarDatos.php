@@ -21,8 +21,13 @@ try {
     $vc->incluirCintaVideo("El nombre de la Rosa", 1.5, 140);
 
     // Crear algunos socios
-    $vc->incluirSocio("Amancio Ortega");
-    $vc->incluirSocio("Pablo Picasso");
+    $vc->incluirSocio("Amancio Ortega", "AmOr01", "1234");
+    $vc->incluirSocio("Pablo Picasso", "PaPi01", "1234");
+
+    $vc->alquilarSocioProducto(1,1);
+    $vc->alquilarSocioProducto(1,2);
+    $vc->alquilarSocioProducto(2,3);
+    $vc->alquilarSocioProducto(2,4);
 
     // Variables array asociativos
     $productos = [];
@@ -44,14 +49,8 @@ try {
     $_SESSION['productos'] = $productos;
     $_SESSION['socios'] = $socios;
 
-
-
-    // Almacenar los arrays en la sesión
-    $_SESSION['productos'] = $productos;
-    $_SESSION['socios'] = $socios;
-
     // Redireccionar a mainAdmin con los datos guardados en la sesión
-    header('Location: mainAdmin.php');
+    header('Location: login.php');
     exit();
 } catch (Exception $e) {
     // Manejo de errores: redirigir o mostrar mensaje

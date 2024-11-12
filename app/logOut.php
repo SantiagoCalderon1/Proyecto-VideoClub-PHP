@@ -1,10 +1,13 @@
-<?php 
-    // Decidí crear un archivo más para manejar el cierre de sesión, lo podía haber hecho en login sí, pero
-    // me parece correcto en un archivo diferente. ya que serías más claro y escalable.
-    session_start();
-    session_unset(); // Elimina todas las variables de sesión
-    session_destroy(); // Destruye la sesión
+<?php
+session_start();  // Inicia la sesión
 
-    header('Location: ../index.php?logout=1'); // Redirige al formulario de login
-    exit();
+// Destruir todas las variables de la sesión
+session_unset();
+
+// Destruir la sesión
+session_destroy();
+
+// Redirigir a la página de login
+header('Location: ../index.php?logout=1');
+exit();
 ?>

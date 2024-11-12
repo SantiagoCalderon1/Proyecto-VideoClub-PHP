@@ -53,7 +53,8 @@ $socios = $_SESSION['socios'];
         $listaClientes = '<ol>';
         foreach ($socios as $id => $socio) {
             $listaClientes .= '<li>Nombre: ' . htmlspecialchars($socio->getNombre()) . '<br>';
-            $listaClientes .= 'Número único: ' . htmlspecialchars($socio->getNumero()) . '</li>';
+            $listaClientes .= 'Número único: ' . htmlspecialchars($socio->getNumero()) .  '<br>';
+            $listaClientes.= 'Usuario: ' . htmlspecialchars($socio->getUser()) . '</li>';
         }
         $listaClientes .= '</ol>';
         echo $listaClientes;
