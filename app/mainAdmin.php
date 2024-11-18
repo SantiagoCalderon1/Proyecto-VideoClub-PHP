@@ -37,7 +37,7 @@ $socios = $_SESSION['socios'];
     <p>¡Bienvenido <?php echo htmlspecialchars($user); ?>!</p>
 
     <!-- Formulario para cerrar la sesión -->
-    <form action="logOut.php" method="post">
+    <form action="logout.php" method="post">
         <input type="submit" name="logout" value="Cerrar sesión">
     </form>
 
