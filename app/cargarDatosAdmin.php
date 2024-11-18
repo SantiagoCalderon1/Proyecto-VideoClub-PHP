@@ -47,7 +47,7 @@ try {
 
     // Guardar las copias en la sesión
     $_SESSION['productos'] = $productos;
-    $_SESSION['socios'] = $socios;
+    $_SESSION['socios'] = $socios; 
 
     // Redireccionar a mainAdmin con los datos guardados en la sesión
     header('Location: login.php');

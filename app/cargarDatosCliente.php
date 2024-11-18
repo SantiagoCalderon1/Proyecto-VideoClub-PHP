@@ -1,0 +1,57 @@
+<?php
+// Iniciar sesión
+session_start();
+
+// Asegura de que las clases están cargadas
+require_once '../autoload.php';
+
+use ProyectoVideoClub\app\VideoClub;
+
+try {
+    // Crear una instancia de VideoClub
+    $vc = new VideoClub("Severo 8A");
+
+    // Incluir algunos soportes de prueba 
+    $vc->incluirJuego("God of War", 19.99, "PS4", 1, 1);
+    $vc->incluirJuego("The Last of Us Part II", 49.99, "PS4", 1, 1);
+    $vc->incluirDvd("Torrente", 4.5, "es", "16:9");
+    $vc->incluirDvd("Origen", 4.5, "es,en,fr", "16:9");
+
+    // Crear algunos socios
+    $vc->incluirSocio("Amancio Ortega", "AmOr01", "1234");
+    $vc->incluirSocio("Pablo Picasso", "PaPi01", "1234");
+
+    $vc->alquilarSocioProducto(1,1);
+    $vc->alquilarSocioProducto(1,2);
+    $vc->alquilarSocioProducto(2,3);
+    $vc->alquilarSocioProducto(2,4);
+
+    // Variables array asociativos
+    $productos = [];
+    $socios = [];
+
+
+    // Obtener los productos y socios del VideoClub y hacer copias con clone
+    foreach ($vc->getProductos() as $producto) {
+        // Hacer una copia de cada producto con clone
+        $productos[$producto->getNumero()] = clone $producto;
+    }
+
+    foreach ($vc->getSocios() as $socio) {
+        // Hacer una copia de cada socio con clone
+        $socios[$socio->getNumero()] = clone $socio;
+    }
+
+    // Guardar las copias en la sesión
+    $_SESSION['productos'] = $productos;
+    $_SESSION['socios'] = $socios;
+
+    // Redireccionar a mainAdmin con los datos guardados en la sesión
+    header('Location: login.php');
+    exit();
+} catch (Exception $e) {
+    // Manejo de errores: redirigir o mostrar mensaje
+    error_log($e->getMessage()); // Registrar el error en el log del servidor
+    header('Location: ../index.php?error=2'); // Redirigir con código de error
+    exit();
+}

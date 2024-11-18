@@ -5,31 +5,38 @@ require_once '../autoload.php';
 session_start(); // Inicia la sesión
 
 // Comprueba si se enviaron las credenciales
-if (isset($_POST['user']) && isset($_POST['password'])) {
-    $user = $_POST['user'];
-    $password  = $_POST['password'];
+if ((isset($_POST['user']) || isset($_SESSION['user'])) && (isset($_POST['password']))) {
+    $_SESSION['user'] = $_POST['user'];  // Guarda al admin en la sesión
 
-    // Verifica si los datos ya fueron cargados en la sesión
-    if (!isset($_SESSION['productos']) || !isset($_SESSION['socios'])) {
-        // Si no están cargados, redirigir a cargarDatos.php
-        header('Location: cargarDatos.php');
-        exit();
-    }
 
     // Verifica si las credenciales son de un administrador
-    if (verificarSesionAdmin($user, $password)) {
-        $_SESSION['user'] = $user;  // Guarda al admin en la sesión
+    if (verificarSesionAdmin($_POST['user'], $_POST['password'])) {
+
+        // Verifica si los datos ya fueron cargados en la sesión
+        if (!isset($_SESSION['productos']) || !isset($_SESSION['socios'])) {
+            // Si no están cargados, redirigir a cargarDatos.php
+            header('Location: cargarDatosAdmin.php');
+            exit();
+        }
+
         header('Location: mainAdmin.php'); // Redirige al administrador
         exit();
     }
 
     // Verifica si las credenciales son de un cliente
-    elseif (verificarSesionCliente($user, $password)) {
-        $_SESSION['user'] = $user;  // Guarda al cliente en la sesión
+    elseif (verificarSesionCliente($_POST['user'], $_POST['password'])) {
+
+        // Verifica si los datos ya fueron cargados en la sesión
+        if (!isset($_SESSION['productos']) || !isset($_SESSION['socios'])) {
+            // Si no están cargados, redirigir a cargarDatos.php
+            header('Location: cargarDatosCliente.php');
+            exit();
+        }
 
         header('Location: mainCliente.php'); // Redirige al cliente
         exit();
     }
+
 
     // Si las credenciales no son correctas
     else {
