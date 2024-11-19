@@ -22,18 +22,18 @@ try {
 
     // Crear algunos socios
     $vc->incluirSocio("Amancio Ortega", "AmOr01", "1234");
-    $vc->incluirSocio("Pablo Picasso", "PaPi01", "1234");
+    $vc->incluirSocio("Pablo Picasso", "PaPi01", "5678");
 
-    $vc->alquilarSocioProducto(1,1);
-    $vc->alquilarSocioProducto(1,2);
-    $vc->alquilarSocioProducto(2,3);
-    $vc->alquilarSocioProducto(2,4);
+    $vc->alquilarSocioProducto(1, 1);
+    $vc->alquilarSocioProducto(1, 2);
+    $vc->alquilarSocioProducto(2, 3);
+    $vc->alquilarSocioProducto(2, 4);
+
 
     // Variables array asociativos
     $productos = [];
     $socios = [];
-
-
+    
     // Obtener los productos y socios del VideoClub y hacer copias con clone
     foreach ($vc->getProductos() as $producto) {
         // Hacer una copia de cada producto con clone
@@ -47,10 +47,10 @@ try {
 
     // Guardar las copias en la sesión
     $_SESSION['productos'] = $productos;
-    $_SESSION['socios'] = $socios; 
+    $_SESSION['socios'] = $socios;
 
     // Redireccionar a mainAdmin con los datos guardados en la sesión
-    header('Location: login.php');
+    header('Location: mainAdmin.php');
     exit();
 } catch (Exception $e) {
     // Manejo de errores: redirigir o mostrar mensaje

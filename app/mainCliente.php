@@ -4,12 +4,12 @@ require_once '../autoload.php';
 session_start(); // Inicia la sesión
 
 // Comprobar si el usuario está guardado en la sesión
-if (isset($_SESSION['user']) && isset($_SESSION['socio'])) {
-    $user = $_SESSION['user']; // Recupera el usuario desde la sesión
+if (isset($_SESSION['usuarioSocio']) && isset($_SESSION['socio'])) {
+    $user = $_SESSION['usuarioSocio']; // Recupera el usuario desde la sesión para poder saludarlo
     $socio = $_SESSION['socio'];
 } else {
     // Si no se han encontrado las variables de sesión, redirigir al login
-    header('Location: ../index.php');
+    header('Location: ../index.php?error=2'); // Redirigir con código de error
     exit();
 }
 ?>
@@ -46,7 +46,6 @@ if (isset($_SESSION['user']) && isset($_SESSION['socio'])) {
         ?>
 
     </form>
-
 </body>
 
 </html>

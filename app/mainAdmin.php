@@ -34,7 +34,7 @@ $socios = $_SESSION['socios'];
 
 <body>
     <h1>Página Administrador</h1>
-    <p>¡Bienvenido <?php echo htmlspecialchars($user); ?>!</p>
+    <p>¡Bienvenido Administrador!</p>
 
     <!-- Formulario para cerrar la sesión -->
     <form action="logout.php" method="post">

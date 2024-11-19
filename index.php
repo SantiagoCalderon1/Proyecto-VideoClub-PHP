@@ -13,8 +13,8 @@
         <?php
         if (isset($_GET['error']) && $_GET['error'] == '1') {
             echo "<p style='color: red;'>Usuario o contraseña incorrectos. Inténtelo de nuevo.</p>";
-            // Espera 5 segundos antes de redirigir a la misma página sin el parámetro "error=1"
-            echo '<meta http-equiv="refresh" content="5;url=' . $_SERVER['PHP_SELF'] . '">';
+            // Espera 60 segundos antes de redirigir a la misma página sin el parámetro "error=1"
+            echo '<meta http-equiv="refresh" content="60;url=' . $_SERVER['PHP_SELF'] . '">';
             // $_SERVER['PHP_SELF'] retorna la url original del archivo
         }
         ?>
@@ -35,16 +35,16 @@
         // Mensaje de cierre de sesión
         if (isset($_GET['logout']) && $_GET['logout'] == '1') {
             echo "<h2 style='color: green;'>Sesión cerrada. Vuelva a iniciar sesión.</h2>";
-            // Espera 5 segundos antes de redirigir a la misma página sin el parámetro "logout=1"
-            echo '<meta http-equiv="refresh" content="5;url=' . $_SERVER['PHP_SELF'] . '">';
+            // Espera 60 segundos antes de redirigir a la misma página sin el parámetro "logout=1"
+            echo '<meta http-equiv="refresh" content="60;url=' . $_SERVER['PHP_SELF'] . '">';
             // $_SERVER['PHP_SELF'] retorna la url original del archivo
         }
 
         // Mensaje de error
         if (isset($_GET['error']) && $_GET['error'] == '2') {
             echo "<h2 style='color: red;'>Error al obtener los datos. Vuelva a iniciar sesión.</h2>";
-            // Espera 5 segundos antes de redirigir a la misma página sin el parámetro "logout=2"
-            echo '<meta http-equiv="refresh" content="5;url=' . $_SERVER['PHP_SELF'] . '">';
+            // Espera 60 segundos antes de redirigir a la misma página sin el parámetro "logout=2"
+            echo '<meta http-equiv="refresh" content="60;url=' . $_SERVER['PHP_SELF'] . '">';
             // $_SERVER['PHP_SELF'] retorna la url original del archivo
         }
         ?>
